@@ -108,7 +108,7 @@ public class Robot extends IterativeRobot {
 			return;
 		}
 		while (sign*ahrs.getAngle()<sign*degree) {
-			double spd = sign * ((degree - ahrs.getAngle())/degree*0.3 + 0.2);
+			double spd = sign * ((degree - ahrs.getAngle())/degree*0.3 + 0.3);
 			t_l.set(ControlMode.PercentOutput, spd);
 			t_r.set(ControlMode.PercentOutput, -spd);
 		}
