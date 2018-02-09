@@ -172,7 +172,16 @@ public class Robot extends IterativeRobot {
 		console.setLength(0);
 	}
 	
-	
+	/*
+	 * How to handle exception:
+	 * e.g.: 
+	 * 	try{
+	 * 		turnDegree(ControlMode.PercentageOutput,90);
+	 * 	} catch(ConnectionException e) {
+	 * 		e.printStackTrace();//print out where the exception occurs to fix later
+	 * 		//Here you need to put code to handle the exception
+	 * 	}
+	 */
 	private void turnDegree(ControlMode mode, double degree) throws ConnectException {
 		if (ahrs.isConnected()) throw new ConnectException("Lose connection with AGRS!");
 		
