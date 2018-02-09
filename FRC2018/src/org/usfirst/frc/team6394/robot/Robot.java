@@ -178,8 +178,8 @@ public class Robot extends IterativeRobot {
 	 * 	try{
 	 * 		turnDegree(ControlMode.PercentageOutput,90);
 	 * 	} catch(ConnectionException e) {
-	 * 		e.printStackTrace();//print out where the exception occurs to fix later
 	 * 		//Here you need to put code to handle the exception
+	 * 		e.printStackTrace();//print out where the exception occurs to fix later
 	 * 	}
 	 */
 	private void turnDegree(ControlMode mode, double degree) throws ConnectException {
