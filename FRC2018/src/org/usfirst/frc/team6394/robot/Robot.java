@@ -83,19 +83,14 @@ public class Robot extends IterativeRobot {
 		t_r.config_kP(kPIDLoopIdx, 0.1, kTimeoutMs);
 		t_r.config_kI(kPIDLoopIdx, 0.0005, kTimeoutMs);
 		t_r.config_kD(kPIDLoopIdx, 4, kTimeoutMs);
-		
-		intaker_l.setInverted(true);
-		intaker_r.setInverted(true);
 	}
 	
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
-	private double pastTrg_l;
-	private double pastTrg_r;
 	
 	@Override
 	public void teleopPeriodic() {
-		//This is the part of functional actions
+		//follows the part of functional actions
 		intaker_l.set(-xboxFunction.getRawAxis(5));
 		intaker_r.set(-xboxFunction.getRawAxis(5));
 		
@@ -109,7 +104,7 @@ public class Robot extends IterativeRobot {
     	intakerLift_r.set(s_intakerlift);
 		
 		
-		//This is the moving actions
+		//follows the moving actions
 		double xboxMotion_y = -xboxMotion.getRawAxis(1)/2;
 		//xboxMotion_y = (xboxMotion_y < 0.08 ? (xboxMotion_y < -0.08 ? xboxMotion_y : 0) : xboxMotion_y);
 		double xboxMotion_z = xboxMotion.getRawAxis(4)/4;
@@ -117,6 +112,7 @@ public class Robot extends IterativeRobot {
 		double l_trg = xboxMotion_y + xboxMotion_z;
 		double r_trg = xboxMotion_y - xboxMotion_z;
 		
+		//cancel drift of the joy stick
 		if (l_trg < 0.01) if (l_trg > -0.01) l_trg = 0;
 		if (r_trg < 0.01) if (r_trg > -0.01) r_trg = 0;
 		
@@ -132,9 +128,9 @@ public class Robot extends IterativeRobot {
 			r_trg = 0;
 		
 		//prevent sudden change of speed
-		console.append(l_trg);
-		console.append("\t" + t_l.getSelectedSensorVelocity(kPIDLoopIdx));
-		console.append("\t" + (t_l.getSelectedSensorVelocity(kPIDLoopIdx) - l_trg));
+//		console.append(l_trg);
+//		console.append("\t" + t_l.getSelectedSensorVelocity(kPIDLoopIdx));
+//		console.append("\t" + (t_l.getSelectedSensorVelocity(kPIDLoopIdx) - l_trg));
 		
 		if (t_l.getSelectedSensorVelocity(kPIDLoopIdx) - l_trg > maxSpeedChange) {
 			l_trg = t_l.getSelectedSensorVelocity(kPIDLoopIdx) - maxSpeedChange;
@@ -152,24 +148,21 @@ public class Robot extends IterativeRobot {
 		if (r_trg == 0) t_r.setIntegralAccumulator(0, kPIDLoopIdx, kTimeoutMs);
 		
 		//data collection
-//		console.append(t_l.getMotorOutputPercent());
-//		console.append("\t" + t_l.getSelectedSensorVelocity(kPIDLoopIdx));
-//		console.append("\t" + t_l.getClosedLoopError(kPIDLoopIdx));
-//		console.append("\t" + l_trg);
-//		
-//		console.append("\t" + t_r.getMotorOutputPercent());
-//		console.append("\t" + t_r.getSelectedSensorVelocity(kPIDLoopIdx));
-//		console.append("\t" + t_r.getClosedLoopError(kPIDLoopIdx));
-//		console.append("\t" + r_trg);
+		console.append(t_l.getMotorOutputPercent());
+		console.append("\t" + t_l.getSelectedSensorVelocity(kPIDLoopIdx));
+		console.append("\t" + t_l.getClosedLoopError(kPIDLoopIdx));
+		console.append("\t" + l_trg);
+		
+		console.append("\t" + t_r.getMotorOutputPercent());
+		console.append("\t" + t_r.getSelectedSensorVelocity(kPIDLoopIdx));
+		console.append("\t" + t_r.getClosedLoopError(kPIDLoopIdx));
+		console.append("\t" + r_trg);
 		
 //		t_l.set(ControlMode.PercentOutput, l_trg);
 //		t_r.set(ControlMode.PercentOutput, r_trg);
 		
 		t_l.set(ControlMode.Velocity, l_trg);
 		t_r.set(ControlMode.Velocity, r_trg);
-		
-		pastTrg_l = l_trg;
-		pastTrg_r = r_trg;
 		
 		
 		if (++loops >= 8) {
