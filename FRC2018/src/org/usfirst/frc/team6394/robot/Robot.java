@@ -9,6 +9,7 @@ package org.usfirst.frc.team6394.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.IFollower;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 	private final double turnDegreePgain = 0;
 	private final double turnDegreeDgain = 0;
 	
-	private final double maxSpeedChange = 500;
+	private final double maxSpeedChange = 1100;
 	
 	@Override	
 	public void robotInit() {
@@ -92,27 +93,45 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//follows the part of functional actions
-		intaker_l.set(-xboxFunction.getRawAxis(5));
-		intaker_r.set(-xboxFunction.getRawAxis(5));
+		if (xboxMotion.getRawButton(3)) {
+			intaker_l.set(-1);
+			intaker_r.set(-1);
+		}
+		if (xboxMotion.getRawButton(2)) {
+			intaker_l.set(1);
+			intaker_r.set(1);
+		}
+		if (xboxMotion.getRawButton(4)) {
+			intaker_l.set(0);
+			intaker_r.set(0);
+		}
 		
-		double s_lift = xboxFunction.getTriggerAxis(Hand.kRight);
-    	if (xboxFunction.getRawButton(3)) s_lift = s_lift *-1;
-    	lift_l.set(s_lift);
-    	lift_r.set(s_lift);
-    	
-    	double s_intakerlift = xboxFunction.getRawAxis(1)*0.5;
+//		double s_lift = xboxFunction.getTriggerAxis(Hand.kRight);
+//    	if (xboxFunction.getRawButton(3)) s_lift = s_lift *-1;
+		if(xboxMotion.getRawButton(5)) {
+			lift_l.set(-xboxMotion.getRawAxis(5));
+			lift_r.set(-xboxMotion.getRawAxis(5));
+		}
+		double s_intakerlift = xboxFunction.getRawAxis(5)*0.5;
     	intakerLift_l.set(s_intakerlift);
     	intakerLift_r.set(s_intakerlift);
+		if(xboxMotion.getRawButton(6)) {
+			intakerLift_l.set(s_intakerlift);
+	    	intakerLift_r.set(s_intakerlift);
+		}
+    	
 		
 		
 		//follows the moving actions
-		double xboxMotion_y = -xboxMotion.getRawAxis(1)/2;
+//		double xboxMotion_y = -xboxMotion.getRawAxis(1)/2;
 		//xboxMotion_y = (xboxMotion_y < 0.08 ? (xboxMotion_y < -0.08 ? xboxMotion_y : 0) : xboxMotion_y);
-		double xboxMotion_z = xboxMotion.getRawAxis(4)/4;
+		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
 		
-		double l_trg = xboxMotion_y + xboxMotion_z;
-		double r_trg = xboxMotion_y - xboxMotion_z;
+		double l_trg = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 + xboxMotion_z;
+		double r_trg = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 - xboxMotion_z;
 		
+//		double l_trg = xboxMotion_y + xboxMotion_z;
+//		double r_trg = xboxMotion_y - xboxMotion_z;
 		//cancel drift of the joy stick
 		if (l_trg < 0.01) if (l_trg > -0.01) l_trg = 0;
 		if (r_trg < 0.01) if (r_trg > -0.01) r_trg = 0;
@@ -122,10 +141,10 @@ public class Robot extends IterativeRobot {
 		
 		//prevent sudden change of direction
 		if (t_l.getSelectedSensorVelocity(kPIDLoopIdx) * l_trg < 0 && 
-				Math.abs(t_l.getSelectedSensorVelocity(kPIDLoopIdx) - l_trg) > 100)
+				Math.abs(t_l.getSelectedSensorVelocity(kPIDLoopIdx) - l_trg) > 900)
 			l_trg = 0;
 		if (t_r.getSelectedSensorVelocity(kPIDLoopIdx) * r_trg < 0 && 
-				Math.abs(t_r.getSelectedSensorVelocity(kPIDLoopIdx) - r_trg) > 100)
+				Math.abs(t_r.getSelectedSensorVelocity(kPIDLoopIdx) - r_trg) > 900)
 			r_trg = 0;
 		
 		//prevent sudden change of speed
@@ -171,6 +190,15 @@ public class Robot extends IterativeRobot {
 			System.out.println(console.toString());
 		}
 		console.setLength(0);
+		
+		if (xboxMotion.getRawButton(2)){
+			try {
+				turnDegree(ControlMode.Velocity,90);
+			} catch (ConnectException e) {
+				
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/*
@@ -183,6 +211,7 @@ public class Robot extends IterativeRobot {
 	 * 		e.printStackTrace();//print out where the exception occurs to fix later
 	 * 	}
 	 */
+	
 	private void turnDegree(ControlMode mode, double degree) throws ConnectException {
 		if (ahrs.isConnected()) throw new ConnectException("Lose connection with AGRS!");
 		
