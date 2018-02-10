@@ -23,6 +23,7 @@ import static org.usfirst.frc.team6394.robot.Constants.*;
 import java.net.ConnectException;
 
 public class Robot extends IterativeRobot {
+	//test
 	
 	XboxController xboxMotion = new XboxController(0);
 	XboxController xboxFunction = new XboxController(1);
