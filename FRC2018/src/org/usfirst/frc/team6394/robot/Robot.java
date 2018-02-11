@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.*;
 import static org.usfirst.frc.team6394.robot.Constants.*;
 
 import org.usfirst.frc.team6394.robot.base.SensorDifferentialBase;
+import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
 
 public class Robot extends IterativeRobot {
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot {
 		rightTalon.config_kD(kPIDLoopIdx, 4, kTimeoutMs);
 		
 		base.setControlMode(ControlMode.Velocity);
-		base.setDeadband(0.01);
+		base.setDeadband(0.1);
 		base.setDirectionThreshold(900);
 		base.setAccelerationThreshold(1100);
 		base.setGoStraightPgain(0.01);
@@ -66,11 +67,22 @@ public class Robot extends IterativeRobot {
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
 	
+	public void teleopInit() {
+		base.getAHRS().reset();
+	}
+	
 	@Override
 	public void teleopPeriodic() {
 		//follows the part of functional actions
-		if (xboxMotion.getRawButton(3)) intaker.set(-1);
-		if (xboxMotion.getRawButton(2)) intaker.set(1);
+		if (xboxMotion.getRawButton(3)) new Thread(new MotorRunnable(intaker) {
+			@Override
+			public void run() {
+				group.set(-.3);
+				Timer.delay(2);
+				group.set(0);
+			}
+		}).start();
+		if (xboxMotion.getRawButton(2)) intaker.set(.3);
 		if (xboxMotion.getRawButton(4)) intaker.set(0);
 		
 		if(xboxMotion.getRawButton(5)) lift.set(-xboxMotion.getRawAxis(5));
