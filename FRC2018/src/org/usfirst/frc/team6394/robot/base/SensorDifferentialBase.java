@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Timer;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
-import static org.usfirst.frc.team6394.robot.base.MotorHelper.*;
+import static org.usfirst.frc.team6394.robot.motorController.MotorHelper.*;
 
 public class SensorDifferentialBase {
 	

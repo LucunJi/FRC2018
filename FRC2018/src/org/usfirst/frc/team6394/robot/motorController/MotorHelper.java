@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6394.robot.base;
+package org.usfirst.frc.team6394.robot.motorController;
 
 public class MotorHelper {
 	public static double applyDeadband(double speed, double deadband){

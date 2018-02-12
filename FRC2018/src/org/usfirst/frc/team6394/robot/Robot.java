@@ -18,6 +18,8 @@ import static org.usfirst.frc.team6394.robot.Constants.*;
 
 import java.net.ConnectException;
 
+import org.usfirst.frc.team6394.robot.GameplayUtil.GamePlayHelper;
+import org.usfirst.frc.team6394.robot.GameplayUtil.Position;
 import org.usfirst.frc.team6394.robot.base.SensorDifferentialBase;
 import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
@@ -37,6 +39,9 @@ public class Robot extends IterativeRobot {
 	TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
 	private DigitalInput intakerLiftUpper = new DigitalInput(0);
 	private DigitalInput intakerLiftLower = new DigitalInput(1);
+	
+	//Change this to adapt to different start position
+	private final Position startPosition = Position.LEFT;
 	
 	
 	@Override	
@@ -73,6 +78,25 @@ public class Robot extends IterativeRobot {
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
 	
+	@Override
+	public void autonomousInit() {
+		
+	}
+	
+	@Override
+	public void autonomousPeriodic() {
+		Position platePositon = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
+		int sign = (platePositon == Position.RIGHT) ? 1 : 0;;//positive for right side movement and vice versa
+		if (platePositon == startPosition){
+			
+		} else if (platePositon != startPosition && startPosition != Position.MIDDLE) {
+			
+		} else {
+			
+		}
+	}
+	
+	@Override
 	public void teleopInit() {
 		base.getAHRS().reset();
 	}
