@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
 
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot {
 		rightTalon.config_kD(kPIDLoopIdx, 4, kTimeoutMs);
 		
 		base.setControlMode(ControlMode.Velocity);
-		base.setDeadband(0.01);
+		base.setDeadband(0.1);
 		base.setDirectionThreshold(900);
 		base.setAccelerationThreshold(1100);
 		base.setGoStraightPgain(0.01);
@@ -69,15 +70,29 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		//follows the part of functional actions
-		if (xboxMotion.getRawButton(3)) intaker.set(-1);
-		if (xboxMotion.getRawButton(2)) intaker.set(1);
+		
+		//following is code for one-joystick operation
+/*		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
+		if (xboxMotion.getRawButton(2)) intaker.set(0.3);
 		if (xboxMotion.getRawButton(4)) intaker.set(0);
 		
-		if(xboxMotion.getRawButton(5)) lift.set(-xboxMotion.getRawAxis(5));
+		if(xboxMotion.getRawButton(5)) lift.set(-xboxMotion.getRawAxis(5)*0.5);
 		
-		double s_intakerlift = xboxFunction.getRawAxis(5)*0.5;
-    	intakerLift.set(s_intakerlift);
-		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
+		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
+    	
+		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+		//following is code for two-joystick operation
+		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
+		if (xboxFunction.getRawButton(1)) {
+			lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
+		}else {
+			lift.set(0);
+		}
+		if (xboxFunction.getRawButton(4)) {
+			intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft)*0.775)*0.3);
+		}else {
+			intakerLift.set(0);
+		}
     	
 		
 		//follows the movement actions

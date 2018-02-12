@@ -109,10 +109,12 @@ public class SensorDifferentialBase {
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed){
-		if (leftSpeed == rightSpeed)
+		if (leftSpeed == rightSpeed) {
 			goStraight(leftSpeed);
-		else
+		} else {
+			ahrs.reset();
 			processSpeed(leftSpeed, rightSpeed);
+		}
 	}
 	
 	public void stop(){
