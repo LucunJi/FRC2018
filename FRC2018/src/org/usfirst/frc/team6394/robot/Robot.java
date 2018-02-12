@@ -80,11 +80,14 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		
+		base.getAngleApproacher().setSetpoint(0);
+		base.getAHRS().reset();
 	}
-	
+
+	boolean flag = false;
 	@Override
 	public void autonomousPeriodic() {
+		if (flag) return;
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 		int sign = (platePosition == Position.RIGHT) ? 1 : 0;//positive for right side movement and vice versa
 		if (platePosition == startPosition){
@@ -94,10 +97,12 @@ public class Robot extends IterativeRobot {
 		} else {
 			
 		}
+		flag = true;
 	}
 	
 	@Override
 	public void teleopInit() {
+		base.getAngleApproacher().setSetpoint(0);
 		base.getAHRS().reset();
 	}
 	
