@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
 
+import java.net.ConnectException;
+
 import org.usfirst.frc.team6394.robot.base.SensorDifferentialBase;
 import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
@@ -33,6 +35,9 @@ public class Robot extends IterativeRobot {
 	TalonGroup intaker = new TalonGroup(new int[]{0,1});
 	TalonGroup  lift = new TalonGroup(new int[]{2,3});
 	TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
+	private DigitalInput intakerLiftUpper = new DigitalInput(0);
+	private DigitalInput intakerLiftLower = new DigitalInput(1);
+	
 	
 	@Override	
 	public void robotInit() {
@@ -61,8 +66,9 @@ public class Robot extends IterativeRobot {
 		base.setAccelerationThreshold(1100);
 		base.setGoStraightPgain(0.01);
 		base.setGoStraightDgain(0);
-		base.setTurnDegreePgain(0.02);
+		base.setTurnDegreePgain(0.005);
 		base.setTurnDegreeDgain(0);
+		
 	}
 	
 	private StringBuilder console = new StringBuilder();
@@ -96,6 +102,8 @@ public class Robot extends IterativeRobot {
     	
 		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
 		//following is code for two-joystick operation
+		
+		
 		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
 			lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
@@ -103,13 +111,30 @@ public class Robot extends IterativeRobot {
 			lift.set(0);
 		}
 		if (xboxFunction.getRawButton(4)) {
+			if(intakerLiftUpper.get()&xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+				intakerLift.set(0);
+			}
+			else if(intakerLiftLower.get()&xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
+				intakerLift.set(0);
+			}
+			else {
 			intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft)*0.775)*0.3);
+			}
 		}else {
 			intakerLift.set(0);
 		}
     	
 		
 		//follows the movement actions
+		if(xboxMotion.getRawButton(2)) {
+			try {
+				base.turnDegree(.2, 90);
+			} catch (ConnectException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
 		
 		double leftSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 + xboxMotion_z;

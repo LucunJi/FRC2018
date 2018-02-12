@@ -148,8 +148,10 @@ public class SensorDifferentialBase {
 	}
 	
 	public void turnDegree(double speed, double degree) throws ConnectException {
-		if (ahrs.isConnected()) throw new ConnectException("Lose connection with AHRS!");
+		if (!ahrs.isConnected()) throw new ConnectException("Lose connection with AHRS!");
 		
+		double tempDeadband = deadband;
+		setDeadband(0);
 		int sign;
 		
 		ahrs.reset();
@@ -160,13 +162,17 @@ public class SensorDifferentialBase {
 		else
 			return;
 		
-		while (sign*ahrs.getAngle()<sign*degree) {
-			if (turnDegreeDgain != 0 && turnDegreePgain != 0) 
-				speed *= (degree - ahrs.getAngle())/degree * turnDegreePgain - ahrs.getRate() * turnDegreeDgain;
-			speed *= sign;
-			tankDrive(speed, -speed);
+		while (ahrs.getAngle()<degree) {
+//			if (turnDegreeDgain != 0 && turnDegreePgain != 0) 
+				double _speed = speed * (degree - ahrs.getAngle()) * turnDegreePgain - ahrs.getRate() * turnDegreeDgain;
+				_speed += 0.1;
+			_speed *= sign;
+			System.out.println(_speed);
+			processSpeed(_speed,-_speed);
 		}
+		ahrs.reset();
 		stop();
+		setDeadband(tempDeadband);
 	}
 	
 	public void goStraight(double speed) {
