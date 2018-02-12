@@ -25,18 +25,18 @@ import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
 
 public class Robot extends IterativeRobot {
-	XboxController xboxMotion = new XboxController(0);
-	XboxController xboxFunction = new XboxController(1);
+	private XboxController xboxMotion = new XboxController(0);
+	private XboxController xboxFunction = new XboxController(1);
 	
-	TalonSRX leftTalon = new TalonSRX(0);
-	TalonSRX rightTalon = new TalonSRX(2);
-	VictorSPX leftVictor = new VictorSPX(1);
-	VictorSPX rightVictor = new VictorSPX(3);
-	SensorDifferentialBase base = new SensorDifferentialBase(leftTalon, rightTalon);
+	private TalonSRX leftTalon = new TalonSRX(0);
+	private TalonSRX rightTalon = new TalonSRX(2);
+	private VictorSPX leftVictor = new VictorSPX(1);
+	private VictorSPX rightVictor = new VictorSPX(3);
+	private SensorDifferentialBase base = new SensorDifferentialBase(leftTalon, rightTalon);
 	
-	TalonGroup intaker = new TalonGroup(new int[]{0,1});
-	TalonGroup  lift = new TalonGroup(new int[]{2,3});
-	TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
+	private TalonGroup intaker = new TalonGroup(new int[]{0,1});
+	private TalonGroup  lift = new TalonGroup(new int[]{2,3});
+	private TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
 	private DigitalInput intakerLiftUpper = new DigitalInput(0);
 	private DigitalInput intakerLiftLower = new DigitalInput(1);
 	
@@ -85,11 +85,11 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousPeriodic() {
-		Position platePositon = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
-		int sign = (platePositon == Position.RIGHT) ? 1 : 0;;//positive for right side movement and vice versa
-		if (platePositon == startPosition){
+		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
+		int sign = (platePosition == Position.RIGHT) ? 1 : 0;//positive for right side movement and vice versa
+		if (platePosition == startPosition){
 			
-		} else if (platePositon != startPosition && startPosition != Position.MIDDLE) {
+		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
 			
 		} else {
 			
