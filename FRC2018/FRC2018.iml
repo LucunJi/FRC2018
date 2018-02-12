@@ -18,6 +18,11 @@
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
   </component>
+  <component name="FacetManager">
+    <facet type="FRC_FACET" name="FRC">
+      <configuration />
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/bin" />
     <exclude-output />
@@ -111,5 +116,21 @@
     <orderEntry type="library" name="CTRE_Phoenix" level="project" />
     <orderEntry type="library" name="navx_frc" level="project" />
     <orderEntry type="library" name="WPILib" level="project" />
+    <orderEntry type="module-library">
+      <library name="WPILib User Lib Directory">
+        <CLASSES>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$USER_HOME$/wpilib/user/java/lib" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="JAVADOC" />
+        <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>
