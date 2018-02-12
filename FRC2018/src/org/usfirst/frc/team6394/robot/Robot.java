@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import static org.usfirst.frc.team6394.robot.Constants.*;
 
 import org.usfirst.frc.team6394.robot.base.SensorDifferentialBase;
+import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
 
 public class Robot extends IterativeRobot {
@@ -67,6 +68,10 @@ public class Robot extends IterativeRobot {
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
 	
+	public void teleopInit() {
+		base.getAHRS().reset();
+	}
+	
 	@Override
 	public void teleopPeriodic() {
 		//follows the part of functional actions
@@ -74,6 +79,15 @@ public class Robot extends IterativeRobot {
 		//following is code for one-joystick operation
 /*		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
 		if (xboxMotion.getRawButton(2)) intaker.set(0.3);
+		if (xboxMotion.getRawButton(3)) new Thread(new MotorRunnable(intaker) {
+			@Override
+			public void run() {
+				group.set(-.3);
+				Timer.delay(2);
+				group.set(0);
+			}
+		}).start();
+		if (xboxMotion.getRawButton(2)) intaker.set(.3);
 		if (xboxMotion.getRawButton(4)) intaker.set(0);
 		
 		if(xboxMotion.getRawButton(5)) lift.set(-xboxMotion.getRawAxis(5)*0.5);

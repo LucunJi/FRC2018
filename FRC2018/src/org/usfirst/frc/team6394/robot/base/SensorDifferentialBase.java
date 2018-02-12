@@ -93,6 +93,10 @@ public class SensorDifferentialBase {
 		this.goStraightPgain = goStraightPgain;
 	}
 	
+	public AHRS getAHRS(){
+		return ahrs;
+	}
+	
 	public void processSpeed(double leftSpeed, double rightSpeed) {
 		leftSpeed = applyDeadband(leftSpeed, deadband);
 		rightSpeed = applyDeadband(rightSpeed, deadband);
@@ -121,11 +125,24 @@ public class SensorDifferentialBase {
 		tankDrive(0, 0);
 	}
 	
-	public void goStraightMeter(double speed, double distance){
-		if (distanceSensor == DistanceSensor.AHRS) {
-			
-		} else if (distanceSensor == DistanceSensor.ENCODER){
-			
+	public void goStraightMeter(double speed, double targetDistance){
+		switch (distanceSensor){
+		case AHRS:
+			ahrs.reset();
+			break;
+		case ENCODER:
+			leftMotor.getIntegralAccumulator(kPIDLoopIdx);
+			break;
+		}
+		double currentDistance = 0;
+		while (currentDistance != targetDistance){
+			switch (distanceSensor){
+			case AHRS:
+				currentDistance = ahrs.getDisplacementX();
+				break;
+			case ENCODER:
+				break;
+			}
 		}
 		//Unfinished
 	}
