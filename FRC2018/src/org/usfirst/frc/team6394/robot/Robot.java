@@ -64,11 +64,10 @@ public class Robot extends IterativeRobot {
 		base.setDeadband(0.1);
 		base.setDirectionThreshold(900);
 		base.setAccelerationThreshold(1100);
-		base.setGoStraightPgain(0.01);
-		base.setGoStraightDgain(0);
-		base.setTurnDegreePgain(0.005);
-		base.setTurnDegreeDgain(0);
-		
+		base.setAngleApproacherFgain(0.003);
+		base.setAngleApproacherPgain(0.02);
+		base.setAngleApproacherIgain(0);
+		base.setAngleApproacherDgain(0);
 	}
 	
 	private StringBuilder console = new StringBuilder();
@@ -101,9 +100,8 @@ public class Robot extends IterativeRobot {
 		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
     	
 		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+		
 		//following is code for two-joystick operation
-		
-		
 		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
 			lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
@@ -126,14 +124,7 @@ public class Robot extends IterativeRobot {
     	
 		
 		//follows the movement actions
-		if(xboxMotion.getRawButton(2)) {
-			try {
-				base.turnDegree(.2, 90);
-			} catch (ConnectException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		if(xboxMotion.getRawButton(2)) base.turnAngle(90, kTurnTimeoutSec);
 		
 		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
 		
