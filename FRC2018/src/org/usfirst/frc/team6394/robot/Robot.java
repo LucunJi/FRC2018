@@ -129,17 +129,17 @@ public class Robot extends IterativeRobot {
 		
 		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
     	
-<<<<<<< HEAD
+
 		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
 		if(xboxMotion.getRawAxis(5)<=0.1) {
 			if(xboxMotion.getRawAxis(5)>=-0.1) {
 				intakerLift.set(-0.1);
 			}
 		}
-=======
-		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+
+		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
 		
->>>>>>> branch 'master' of https://github.com/LucunJi/FRC2018.git
+
 		//following is code for two-joystick operation
 /*		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
