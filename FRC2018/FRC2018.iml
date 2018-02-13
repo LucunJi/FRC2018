@@ -18,6 +18,96 @@
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
   </component>
+<<<<<<< HEAD
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="wpilib">
+        <CLASSES>
+          <root url="file://$wpilib$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$wpilib.sources$" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="networktables">
+        <CLASSES>
+          <root url="file://$networktables$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$ntcore.sources$" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="opencv">
+        <CLASSES>
+          <root url="file://$opencv$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$opencv.sources$" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cscore">
+        <CLASSES>
+          <root url="file://$cscore$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$cscore.sources$" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="wpiutil">
+        <CLASSES>
+          <root url="file://$wpiutil$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$wpiutil.sources$" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="CTRE_Phoenix-sources.jar">
+        <CLASSES>
+          <root url="file://$USERLIBS_DIR$/CTRE_Phoenix-sources.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="CTRE_Phoenix.jar">
+        <CLASSES>
+          <root url="file://$USERLIBS_DIR$/CTRE_Phoenix.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="navx_frc.jar">
+        <CLASSES>
+          <root url="file://$USERLIBS_DIR$/navx_frc.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+=======
   <component name="FacetManager">
     <facet type="FRC_FACET" name="FRC">
       <configuration />
@@ -130,6 +220,7 @@
         <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" />
         <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="JAVADOC" />
         <jarDirectory url="file://$USER_HOME$/wpilib/user/java/lib" recursive="true" type="SOURCES" />
+>>>>>>> branch 'master' of https://github.com/LucunJi/FRC2018.git
       </library>
     </orderEntry>
   </component>
