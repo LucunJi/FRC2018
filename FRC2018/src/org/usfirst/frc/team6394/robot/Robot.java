@@ -111,7 +111,8 @@ public class Robot extends IterativeRobot {
 		//follows the part of functional actions
 		
 		//following is code for one-joystick operation
-/*		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
+		
+		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
 		if (xboxMotion.getRawButton(2)) intaker.set(0.3);
 		if (xboxMotion.getRawButton(3)) new Thread(new MotorRunnable(intaker) {
 			@Override
@@ -128,10 +129,19 @@ public class Robot extends IterativeRobot {
 		
 		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
     	
-		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+
+		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
+		if(xboxMotion.getRawAxis(5)<=0.1) {
+			if(xboxMotion.getRawAxis(5)>=-0.1) {
+				intakerLift.set(-0.1);
+			}
+		}
+
+		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
 		
+
 		//following is code for two-joystick operation
-		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
+/*		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
 			lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
 		}else {
@@ -149,7 +159,7 @@ public class Robot extends IterativeRobot {
 			}
 		}else {
 			intakerLift.set(0);
-		}
+		}*/
     	
 		
 		//follows the movement actions
