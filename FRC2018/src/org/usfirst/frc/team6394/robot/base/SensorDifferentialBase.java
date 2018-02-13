@@ -1,21 +1,32 @@
 package org.usfirst.frc.team6394.robot.base;
 
-import java.net.ConnectException;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Timer;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
-import static org.usfirst.frc.team6394.robot.base.MotorHelper.*;
+import static org.usfirst.frc.team6394.robot.motorController.MotorHelper.*;
 
 public class SensorDifferentialBase {
 	
 	public enum DistanceSensor{
 		AHRS, ENCODER
+	}
+	
+	private class ThrottleFetcher implements PIDOutput {
+		private double throttle = 0;
+		@Override public void pidWrite(double output) {
+			throttle = output;
+		}
+		public double getThrottle() {
+			return throttle;
+		}
 	}
 	
 	private final TalonSRX leftMotor;
@@ -28,10 +39,9 @@ public class SensorDifferentialBase {
 	private double velocityCoefficient = 4096 * 500.0 / 600;
 	private double accelerationThreshold = 0;
 	private double directionThreshold = 0;
-	private double turnDegreePgain = 0;
-	private double turnDegreeDgain = 0;
-	private double goStraightPgain = 0;
-	private double goStraightDgain = 0;
+	
+	private ThrottleFetcher throttleFetcher = new ThrottleFetcher();
+	private PIDController angleApproacher;
 	
 
 	public SensorDifferentialBase(TalonSRX leftMotor, TalonSRX rightMotor) {
@@ -51,6 +61,9 @@ public class SensorDifferentialBase {
 		
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
+		
+		angleApproacher = new PIDController(0, 0, 0, 0, ahrs, throttleFetcher);
+		angleApproacher.setAbsoluteTolerance(1);
 	}
 	
 	public void setDeadband(double deadband) {
@@ -72,25 +85,24 @@ public class SensorDifferentialBase {
 	public void setAccelerationThreshold(double accelerationThreshold) {
 		this.accelerationThreshold = accelerationThreshold;
 	}
-	
 	public void setDirectionThreshold(double directionThreshold) {
 		this.directionThreshold = directionThreshold;
 	}
 	
-	public void setTurnDegreeDgain(double turnDegreeDgain) {
-		this.turnDegreeDgain = turnDegreeDgain;
+	public PIDController getAngleApproacher() {
+		return angleApproacher;
 	}
-	
-	public void setTurnDegreePgain(double turnDegreePgain) {
-		this.turnDegreePgain = turnDegreePgain;
+	public void setAngleApproacherFgain(double f) {
+		angleApproacher.setF(f);
 	}
-	
-	public void setGoStraightDgain(double goStraightDgain) {
-		this.goStraightDgain = goStraightDgain;
+	public void setAngleApproacherPgain(double p) {
+		angleApproacher.setP(p);
 	}
-	
-	public void setGoStraightPgain(double goStraightPgain) {
-		this.goStraightPgain = goStraightPgain;
+	public void setAngleApproacherIgain(double i) {
+		angleApproacher.setI(i);
+	}
+	public void setAngleApproacherDgain(double d) {
+		angleApproacher.setD(d);
 	}
 	
 	public AHRS getAHRS(){
@@ -98,8 +110,6 @@ public class SensorDifferentialBase {
 	}
 	
 	public void processSpeed(double leftSpeed, double rightSpeed) {
-		leftSpeed = applyDeadband(leftSpeed, deadband);
-		rightSpeed = applyDeadband(rightSpeed, deadband);
 		if (controlMode == ControlMode.Velocity) {
 			leftSpeed *= velocityCoefficient;
 			rightSpeed *= velocityCoefficient;
@@ -113,16 +123,37 @@ public class SensorDifferentialBase {
 	}
 	
 	public void tankDrive(double leftSpeed, double rightSpeed){
-		if (leftSpeed == rightSpeed) {
-			goStraight(leftSpeed);
+		leftSpeed = applyDeadband(leftSpeed, deadband);
+		rightSpeed = applyDeadband(rightSpeed, deadband);
+		if (leftSpeed == rightSpeed && leftSpeed != 0 &&
+				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0 &&rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0) {
+			if (!angleApproacher.isEnabled()) {
+				angleApproacher.setSetpoint(ahrs.getYaw());
+				angleApproacher.enable();
+			}
+			double throttle = throttleFetcher.getThrottle();
+			leftSpeed += throttle;
+			rightSpeed -= throttle;
 		} else {
-			ahrs.reset();
-			processSpeed(leftSpeed, rightSpeed);
+			if (angleApproacher.isEnabled()) angleApproacher.disable();
 		}
+		processSpeed(leftSpeed, rightSpeed);
 	}
 	
 	public void stop(){
 		tankDrive(0, 0);
+	}
+	
+	public void turnAngle(double angle, double timeoutSeconds) {
+		angleApproacher.setSetpoint(angleApproacher.getSetpoint() + angle);
+		if (!angleApproacher.isEnabled()) angleApproacher.enable();
+		Timer timer = new Timer();
+		timer.start();
+		while (timer.get() < timeoutSeconds && 
+				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0 && rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0) {
+			tankDrive(0, 0);
+		}
+		timer.stop();
 	}
 	
 	public void goStraightMeter(double speed, double targetDistance){
@@ -131,49 +162,17 @@ public class SensorDifferentialBase {
 			ahrs.reset();
 			break;
 		case ENCODER:
-			leftMotor.getIntegralAccumulator(kPIDLoopIdx);
 			break;
 		}
 		double currentDistance = 0;
 		while (currentDistance != targetDistance){
 			switch (distanceSensor){
 			case AHRS:
-				currentDistance = ahrs.getDisplacementX();
 				break;
 			case ENCODER:
 				break;
 			}
 		}
 		//Unfinished
-	}
-	
-	public void turnDegree(double speed, double degree) throws ConnectException {
-		if (ahrs.isConnected()) throw new ConnectException("Lose connection with AHRS!");
-		
-		int sign;
-		
-		ahrs.reset();
-		if(degree>0)
-			sign = 1;
-		else if(degree<0)
-			sign = -1;
-		else
-			return;
-		
-		while (sign*ahrs.getAngle()<sign*degree) {
-			if (turnDegreeDgain != 0 && turnDegreePgain != 0) 
-				speed *= (degree - ahrs.getAngle())/degree * turnDegreePgain - ahrs.getRate() * turnDegreeDgain;
-			speed *= sign;
-			tankDrive(speed, -speed);
-		}
-		stop();
-	}
-	
-	public void goStraight(double speed) {
-		double turnThrottle = 0;
-		if (ahrs.isConnected()) {
-			turnThrottle = -ahrs.getAngle() * goStraightPgain - ahrs.getRate() * goStraightDgain;
-		}
-		processSpeed(speed + turnThrottle, speed - turnThrottle);
 	}
 }

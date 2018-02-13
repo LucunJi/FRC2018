@@ -16,23 +16,33 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
 
+import java.net.ConnectException;
+
+import org.usfirst.frc.team6394.robot.GameplayUtil.GamePlayHelper;
+import org.usfirst.frc.team6394.robot.GameplayUtil.Position;
 import org.usfirst.frc.team6394.robot.base.SensorDifferentialBase;
 import org.usfirst.frc.team6394.robot.motorController.MotorRunnable;
 import org.usfirst.frc.team6394.robot.motorController.TalonGroup;
 
 public class Robot extends IterativeRobot {
-	XboxController xboxMotion = new XboxController(0);
-	XboxController xboxFunction = new XboxController(1);
+	private XboxController xboxMotion = new XboxController(0);
+	private XboxController xboxFunction = new XboxController(1);
 	
-	TalonSRX leftTalon = new TalonSRX(0);
-	TalonSRX rightTalon = new TalonSRX(2);
-	VictorSPX leftVictor = new VictorSPX(1);
-	VictorSPX rightVictor = new VictorSPX(3);
-	SensorDifferentialBase base = new SensorDifferentialBase(leftTalon, rightTalon);
+	private TalonSRX leftTalon = new TalonSRX(0);
+	private TalonSRX rightTalon = new TalonSRX(2);
+	private VictorSPX leftVictor = new VictorSPX(1);
+	private VictorSPX rightVictor = new VictorSPX(3);
+	private SensorDifferentialBase base = new SensorDifferentialBase(leftTalon, rightTalon);
 	
-	TalonGroup intaker = new TalonGroup(new int[]{0,1});
-	TalonGroup  lift = new TalonGroup(new int[]{2,3});
-	TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
+	private TalonGroup intaker = new TalonGroup(new int[]{0,1});
+	private TalonGroup  lift = new TalonGroup(new int[]{2,3});
+	private TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
+	private DigitalInput intakerLiftUpper = new DigitalInput(0);
+	private DigitalInput intakerLiftLower = new DigitalInput(1);
+	
+	//Change this to adapt to different start position
+	private final Position startPosition = Position.LEFT;
+	
 	
 	@Override	
 	public void robotInit() {
@@ -59,16 +69,40 @@ public class Robot extends IterativeRobot {
 		base.setDeadband(0.1);
 		base.setDirectionThreshold(900);
 		base.setAccelerationThreshold(1100);
-		base.setGoStraightPgain(0.01);
-		base.setGoStraightDgain(0);
-		base.setTurnDegreePgain(0.02);
-		base.setTurnDegreeDgain(0);
+		base.setAngleApproacherFgain(0.003);
+		base.setAngleApproacherPgain(0.02);
+		base.setAngleApproacherIgain(0);
+		base.setAngleApproacherDgain(0);
 	}
 	
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
 	
+	@Override
+	public void autonomousInit() {
+		base.getAngleApproacher().setSetpoint(0);
+		base.getAHRS().reset();
+	}
+
+	boolean flag = false;
+	@Override
+	public void autonomousPeriodic() {
+		if (flag) return;
+		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
+		int sign = (platePosition == Position.RIGHT) ? 1 : 0;//positive for right side movement and vice versa
+		if (platePosition == startPosition){
+			
+		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
+			
+		} else {
+			
+		}
+		flag = true;
+	}
+	
+	@Override
 	public void teleopInit() {
+		base.getAngleApproacher().setSetpoint(0);
 		base.getAHRS().reset();
 	}
 	
@@ -95,12 +129,17 @@ public class Robot extends IterativeRobot {
 		
 		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
     	
+<<<<<<< HEAD
 		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);
 		if(xboxMotion.getRawAxis(5)<=0.1) {
 			if(xboxMotion.getRawAxis(5)>=-0.1) {
 				intakerLift.set(-0.1);
 			}
 		}
+=======
+		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+		
+>>>>>>> branch 'master' of https://github.com/LucunJi/FRC2018.git
 		//following is code for two-joystick operation
 /*		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
@@ -109,13 +148,23 @@ public class Robot extends IterativeRobot {
 			lift.set(0);
 		}
 		if (xboxFunction.getRawButton(4)) {
+			if(intakerLiftUpper.get()&xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+				intakerLift.set(0);
+			}
+			else if(intakerLiftLower.get()&xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
+				intakerLift.set(0);
+			}
+			else {
 			intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft)*0.775)*0.3);
+			}
 		}else {
 			intakerLift.set(0);
 		}*/
     	
 		
 		//follows the movement actions
+		if(xboxMotion.getRawButton(2)) base.turnAngle(90, kTurnTimeoutSec);
+		
 		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
 		
 		double leftSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 + xboxMotion_z;
