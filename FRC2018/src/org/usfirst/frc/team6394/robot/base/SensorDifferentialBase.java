@@ -15,10 +15,6 @@ import static org.usfirst.frc.team6394.robot.motorController.MotorHelper.*;
 
 public class SensorDifferentialBase {
 	
-	public enum DistanceSensor{
-		AHRS, ENCODER
-	}
-	
 	private class ThrottleFetcher implements PIDOutput {
 		private double throttle = 0;
 		@Override public void pidWrite(double output) {
@@ -31,7 +27,6 @@ public class SensorDifferentialBase {
 	
 	private final TalonSRX leftMotor;
 	private final TalonSRX rightMotor;
-	private DistanceSensor distanceSensor = DistanceSensor.AHRS;
 	private final AHRS ahrs = new AHRS(Port.kMXP);
 	
 	private double deadband;
@@ -41,7 +36,7 @@ public class SensorDifferentialBase {
 	private double directionThreshold = 0;
 	
 	private ThrottleFetcher throttleFetcher = new ThrottleFetcher();
-	private PIDController angleApproacher;
+	private PIDController straightKeeper;
 	
 
 	public SensorDifferentialBase(TalonSRX leftMotor, TalonSRX rightMotor) {
@@ -58,12 +53,14 @@ public class SensorDifferentialBase {
 		rightMotor.configNominalOutputReverse(0, kTimeoutMs);
 		rightMotor.configPeakOutputForward(1, kTimeoutMs);
 		rightMotor.configPeakOutputReverse(-1, kTimeoutMs);
-		
+
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
-		
-		angleApproacher = new PIDController(0, 0, 0, 0, ahrs, throttleFetcher);
-		angleApproacher.setAbsoluteTolerance(1);
+
+		straightKeeper = new PIDController(0, 0, 0, 0, ahrs, throttleFetcher);
+		straightKeeper.setInputRange(-180,180);
+		straightKeeper.setOutputRange(-1,1);
+		straightKeeper.setAbsoluteTolerance(0);
 	}
 	
 	public void setDeadband(double deadband) {
@@ -77,10 +74,6 @@ public class SensorDifferentialBase {
 	public void setVelocityCoefficient(double velocityCoefficient) {
 		this.velocityCoefficient = velocityCoefficient;
 	}
-
-	public void setDistanceSensor(DistanceSensor sensor){
-		distanceSensor = sensor;
-	}
 	
 	public void setAccelerationThreshold(double accelerationThreshold) {
 		this.accelerationThreshold = accelerationThreshold;
@@ -89,20 +82,20 @@ public class SensorDifferentialBase {
 		this.directionThreshold = directionThreshold;
 	}
 	
-	public PIDController getAngleApproacher() {
-		return angleApproacher;
+	public PIDController getStraightKeeper() {
+		return straightKeeper;
 	}
-	public void setAngleApproacherFgain(double f) {
-		angleApproacher.setF(f);
+	public void setStraightKeeperFgain(double f) {
+		straightKeeper.setF(f);
 	}
-	public void setAngleApproacherPgain(double p) {
-		angleApproacher.setP(p);
+	public void setStraightKeeperPgain(double p) {
+		straightKeeper.setP(p);
 	}
-	public void setAngleApproacherIgain(double i) {
-		angleApproacher.setI(i);
+	public void setStraightKeeperIgain(double i) {
+		straightKeeper.setI(i);
 	}
-	public void setAngleApproacherDgain(double d) {
-		angleApproacher.setD(d);
+	public void setStraightKeeperDgain(double d) {
+		straightKeeper.setD(d);
 	}
 	
 	public AHRS getAHRS(){
@@ -127,52 +120,20 @@ public class SensorDifferentialBase {
 		rightSpeed = applyDeadband(rightSpeed, deadband);
 		if (leftSpeed == rightSpeed && leftSpeed != 0 &&
 				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0 &&rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0) {
-			if (!angleApproacher.isEnabled()) {
-				angleApproacher.setSetpoint(ahrs.getYaw());
-				angleApproacher.enable();
+			if (!straightKeeper.isEnabled()) {
+				straightKeeper.setSetpoint(ahrs.getYaw());
+				straightKeeper.enable();
 			}
 			double throttle = throttleFetcher.getThrottle();
 			leftSpeed += throttle;
 			rightSpeed -= throttle;
 		} else {
-			if (angleApproacher.isEnabled()) angleApproacher.disable();
+			if (straightKeeper.isEnabled()) straightKeeper.disable();
 		}
 		processSpeed(leftSpeed, rightSpeed);
 	}
 	
 	public void stop(){
 		tankDrive(0, 0);
-	}
-	
-	public void turnAngle(double angle, double timeoutSeconds) {
-		angleApproacher.setSetpoint(angleApproacher.getSetpoint() + angle);
-		if (!angleApproacher.isEnabled()) angleApproacher.enable();
-		Timer timer = new Timer();
-		timer.start();
-		while (timer.get() < timeoutSeconds && 
-				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0 && rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0) {
-			tankDrive(0, 0);
-		}
-		timer.stop();
-	}
-	
-	public void goStraightMeter(double speed, double targetDistance){
-		switch (distanceSensor){
-		case AHRS:
-			ahrs.reset();
-			break;
-		case ENCODER:
-			break;
-		}
-		double currentDistance = 0;
-		while (currentDistance != targetDistance){
-			switch (distanceSensor){
-			case AHRS:
-				break;
-			case ENCODER:
-				break;
-			}
-		}
-		//Unfinished
 	}
 }

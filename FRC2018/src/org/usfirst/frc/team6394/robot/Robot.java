@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
@@ -68,12 +69,12 @@ public class Robot extends IterativeRobot {
 		
 		base.setControlMode(ControlMode.Velocity);
 		base.setDeadband(0.1);
-		base.setDirectionThreshold(900);
+		base.setDirectionThreshold(1100);
 		base.setAccelerationThreshold(1100);
-		base.setAngleApproacherFgain(0.003);
-		base.setAngleApproacherPgain(0.02);
-		base.setAngleApproacherIgain(0);
-		base.setAngleApproacherDgain(0);
+		base.setStraightKeeperFgain(0);
+		base.setStraightKeeperPgain(0.02);
+		base.setStraightKeeperIgain(0.0005);
+		base.setStraightKeeperDgain(0);
 	}
 	
 	private StringBuilder console = new StringBuilder();
@@ -81,7 +82,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		base.getAngleApproacher().setSetpoint(0);
+		base.getStraightKeeper().setSetpoint(0);
 		base.getAHRS().reset();
 	}
 
@@ -103,7 +104,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void teleopInit() {
-		base.getAngleApproacher().setSetpoint(0);
+		base.getStraightKeeper().setSetpoint(0);
 		base.getAHRS().reset();
 	}
 	
@@ -145,14 +146,14 @@ public class Robot extends IterativeRobot {
 			lift.set(0);
 		}
 		if (xboxFunction.getRawButton(4)) {
-			if(intakerLiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+			if(intakerLiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) {
 				intakerLift.set(0);
-			}
-			else if(intakerLiftLower.get()&xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
+			} else if(intakerLiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0) {
 				intakerLift.set(0);
-			}
-			else {
-			intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft)*0.775)*0.3);
+			} else if(xboxFunction.getTriggerAxis(Hand.kRight) == 0 && xboxFunction.getTriggerAxis(Hand.kLeft) == 0) {
+				intakerLift.set(-0.0675);
+			} else {
+				intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
 			}
 		}else {
 			intakerLift.set(0);
@@ -160,14 +161,31 @@ public class Robot extends IterativeRobot {
     	
 		
 		//follows the movement actions
-		if(xboxMotion.getRawButton(2)) base.turnAngle(90, kTurnTimeoutSec);
-		
+		if (xboxMotion.getRawButton(2)) {
+			moveDistance(1);
+			Timer.delay(0.5);
+			rotateAngle(90);
+			Timer.delay(0.5);
+			moveDistance(1);
+			Timer.delay(0.5);
+			rotateAngle(-90);
+			Timer.delay(0.5);
+			moveDistance(-1);
+			Timer.delay(0.5);
+			rotateAngle(180);
+		}
+
 		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
 		
 		double leftSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 + xboxMotion_z;
 		double rightSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 - xboxMotion_z;
 		
 		base.tankDrive(leftSpeed, rightSpeed);
+
+		console.append(base.getAHRS().isConnected() + "\t" +
+				leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" +
+				rightTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t"
+		);
 		
 		
 		if (++loops >= 8) {
@@ -176,6 +194,30 @@ public class Robot extends IterativeRobot {
 		}
 		console.setLength(0);
 	}
-	
-	
+
+	public void rotateAngle(double angle) {
+		int sign = angle > 0 ? 1 : -1;
+		AHRS ahrs = base.getAHRS();
+		double trgAngle = ahrs.getAngle() + angle;
+		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled()) {
+			double error = trgAngle - ahrs.getAngle();
+			error *= sign;
+			double throttle = error/angle/8+ 0.1*sign;
+			base.processSpeed(throttle,-throttle);
+		}
+		base.stop();
+	}
+
+	public void moveDistance(double distance) {
+		int sign = distance > 0 ? 1 : -1;
+		double trgPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + distance * 8400;
+		while (sign * leftTalon.getSelectedSensorPosition(kPIDLoopIdx) < sign * trgPosition && isEnabled()) {
+			System.out.println(leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" + trgPosition);
+			double error = trgPosition - leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+			error *= sign;
+			double throttle = error/(distance * 8400)/8 + 0.1*sign;
+			base.tankDrive(throttle,throttle);
+		}
+		base.stop();
+	}
 }
