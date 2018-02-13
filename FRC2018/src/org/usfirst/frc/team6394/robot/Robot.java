@@ -39,7 +39,8 @@ public class Robot extends IterativeRobot {
 	private TalonGroup intakerLift = new TalonGroup(new int[]{4,5});
 	private DigitalInput intakerLiftUpper = new DigitalInput(0);
 	private DigitalInput intakerLiftLower = new DigitalInput(1);
-	
+	private DigitalInput LiftUpper = new DigitalInput(2);
+	private DigitalInput LiftLower = new DigitalInput(3);
 	//Change this to adapt to different start position
 	private final Position startPosition = Position.LEFT;
 	
@@ -133,12 +134,18 @@ public class Robot extends IterativeRobot {
 		//following is code for two-joystick operation
 		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
 		if (xboxFunction.getRawButton(1)) {
-			lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
-		}else {
+			if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+				lift.set(0);
+			} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
+				//suosi
+			} else {
+				lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
+			}
+		} else {
 			lift.set(0);
 		}
 		if (xboxFunction.getRawButton(4)) {
-			if(intakerLiftUpper.get()&xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+			if(intakerLiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight)>0) {
 				intakerLift.set(0);
 			}
 			else if(intakerLiftLower.get()&xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
