@@ -8,7 +8,6 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Timer;
 
 import static org.usfirst.frc.team6394.robot.Constants.*;
@@ -16,8 +15,8 @@ import static org.usfirst.frc.team6394.robot.motorController.MotorHelper.*;
 
 public class SensorDifferentialBase {
 	
-	public enum SensorType{
-		AHRS, CTRE_MAGENCODER, ULTRASONICS
+	public enum DistanceSensor{
+		AHRS, ENCODER
 	}
 	
 	private class ThrottleFetcher implements PIDOutput {
@@ -29,21 +28,10 @@ public class SensorDifferentialBase {
 			return throttle;
 		}
 	}
-
-	private class displacementPIDOutput implements PIDOutput {
-	    private SensorDifferentialBase base;
-	    public displacementPIDOutput(SensorDifferentialBase base) { this.base = base; }
-        @Override public void pidWrite(double output) {
-	        PIDController angleApproacher = base.getAngleApproacher();
-	        if (!angleApproacher.isEnabled()) {
-	            angleApproacher.enable();
-            }
-            processSpeed(output,output);
-        }
-    }
+	
 	private final TalonSRX leftMotor;
 	private final TalonSRX rightMotor;
-	private SensorType distanceSensor = SensorType.AHRS;
+	private DistanceSensor distanceSensor = DistanceSensor.AHRS;
 	private final AHRS ahrs = new AHRS(Port.kMXP);
 	
 	private double deadband;
@@ -90,7 +78,7 @@ public class SensorDifferentialBase {
 		this.velocityCoefficient = velocityCoefficient;
 	}
 
-	public void setDistanceSensor(SensorType sensor){
+	public void setDistanceSensor(DistanceSensor sensor){
 		distanceSensor = sensor;
 	}
 	
@@ -162,35 +150,29 @@ public class SensorDifferentialBase {
 		Timer timer = new Timer();
 		timer.start();
 		while (timer.get() < timeoutSeconds && 
-				!(leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0 && rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0)) {
+				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0 && rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0) {
 			tankDrive(0, 0);
 		}
 		timer.stop();
 	}
 	
-	public void displacementMove(double displacement, double timeoutSec){
+	public void goStraightMeter(double speed, double targetDistance){
 		switch (distanceSensor){
-			case AHRS:
-				double targetDisplacement = ahrs.getDisplacementX() + displacement;
-				AHRS displacementAHRS = new AHRS(Port.kMXP){
-					@Override
-					public double pidGet(){
-						return this.getDisplacementX();
-					}
-				};
-				PIDController displacementController = new PIDController(0,0,0,0.3,
-                        displacementAHRS, new displacementPIDOutput(this));
-				displacementController.setAbsoluteTolerance(0.03);
-				Timer timer = new Timer();
-				displacementController.enable();
-				timer.start();
-				while (!(leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0 && rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) == 0)
-                        && timer.get() < timeoutSec) {
-                    Timer.delay(0.01);
-				}
-				break;
-			default:
-				throw new IllegalArgumentException("Unsupported sensor type for distance measurement!");
+		case AHRS:
+			ahrs.reset();
+			break;
+		case ENCODER:
+			break;
 		}
+		double currentDistance = 0;
+		while (currentDistance != targetDistance){
+			switch (distanceSensor){
+			case AHRS:
+				break;
+			case ENCODER:
+				break;
+			}
+		}
+		//Unfinished
 	}
 }
