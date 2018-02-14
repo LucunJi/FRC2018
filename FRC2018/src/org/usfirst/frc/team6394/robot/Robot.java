@@ -91,13 +91,37 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		if (flag) return;
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
-		int sign = (platePosition == Position.RIGHT) ? 1 : 0;//positive for right side movement and vice versa
-		if (platePosition == startPosition){
-			
+		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
+		if (platePosition == startPosition){// left to left or right to right
+			moveDistance(6, 10);
+			base.getAHRS().reset();
+			Timer.delay(0.5);
+			rotateAngle(sign*90,  3);
+			Timer.delay(0.5);
+			moveDistance(1, 3);
+			Timer.delay(0.5);
+			rotateAngle(sign*90, 5);
+			Timer.delay(0.5);
+			intaker.set(-0.3);
+			leftTalon.set(ControlMode.PercentOutput,0.08);
+			rightTalon.set(ControlMode.PercentOutput,0.08);
+			Timer.delay(2);
+			base.stop();
+			intakerLift.set(-0.3);
+			Timer.delay(3);
+			intaker.set(0);
+			intakerLift.set(-0.0675);
+			moveDistance(1,3);
+			intaker.set(0.3);
+			Timer.delay(1);
+			intaker.set(0);
+			intakerLift.set(0);
 		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
-			
+			//left to right or right to left
+			System.out.println("B");
 		} else {
-			
+			//middle to left or right
+			System.out.println("C");
 		}
 		flag = true;
 	}
@@ -110,9 +134,10 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void teleopPeriodic() {
-		//follows the part of functional actions
-		
-		//following is code for one-joystick operation
+		if (isEnabled() && isOperatorControl()) {
+			//follows the part of functional actions
+
+			//following is code for one-joystick operation
 /*		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
 		if (xboxMotion.getRawButton(2)) intaker.set(0.3);
 		if (xboxMotion.getRawButton(3)) new Thread(new MotorRunnable(intaker) {
@@ -131,91 +156,92 @@ public class Robot extends IterativeRobot {
 		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
     	
 		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
-		
-		//following is code for two-joystick operation
-		intaker.set(-xboxFunction.getRawAxis(1)*0.3);
-		if (xboxFunction.getRawButton(1)) {
-			if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight)>0) {
+
+			//following is code for two-joystick operation
+			intaker.set(-xboxFunction.getRawAxis(1) * 0.3);
+			if (xboxFunction.getRawButton(1)) {
+				if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) {
+					lift.set(0);
+				} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0) {
+					//suosi
+				} else {
+					lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight) + xboxFunction.getTriggerAxis(Hand.kLeft)) * 0.3);
+				}
+			} else {
 				lift.set(0);
-			} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft)>0) {
-				//suosi
-			} else {
-				lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight)+xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
 			}
-		} else {
-			lift.set(0);
-		}
-		if (xboxFunction.getRawButton(4)) {
-			if(intakerLiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) {
-				intakerLift.set(0);
-			} else if(intakerLiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0) {
-				intakerLift.set(0);
-			} else if(xboxFunction.getTriggerAxis(Hand.kRight) == 0 && xboxFunction.getTriggerAxis(Hand.kLeft) == 0) {
-				intakerLift.set(-0.0675);
+			if (xboxFunction.getRawButton(4)) {
+				if ((intakerLiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) ||
+						(intakerLiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0)) {
+					intakerLift.set(0);
+				} else if (xboxFunction.getTriggerAxis(Hand.kRight) == 0 && xboxFunction.getTriggerAxis(Hand.kLeft) == 0) {
+					intakerLift.set(-0.0675);
+				} else {
+					intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight) - xboxFunction.getTriggerAxis(Hand.kLeft)) * 0.3);
+				}
 			} else {
-				intakerLift.set(-(xboxFunction.getTriggerAxis(Hand.kRight)-xboxFunction.getTriggerAxis(Hand.kLeft))*0.3);
+				intakerLift.set(0);
 			}
-		}else {
-			intakerLift.set(0);
-		}
-    	
-		
-		//follows the movement actions
-		if (xboxMotion.getRawButton(2)) {
-			moveDistance(1);
-			Timer.delay(0.5);
-			rotateAngle(90);
-			Timer.delay(0.5);
-			moveDistance(1);
-			Timer.delay(0.5);
-			rotateAngle(-90);
-			Timer.delay(0.5);
-			moveDistance(-1);
-			Timer.delay(0.5);
-			rotateAngle(180);
-		}
 
-		double xboxMotion_z = xboxMotion.getRawAxis(0)/4;
-		
-		double leftSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 + xboxMotion_z;
-		double rightSpeed = (xboxMotion.getRawAxis(3)-xboxMotion.getRawAxis(2))/2 - xboxMotion_z;
-		
-		base.tankDrive(leftSpeed, rightSpeed);
 
-		console.append(base.getAHRS().isConnected() + "\t" +
-				leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" +
-				rightTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t"
-		);
-		
-		
-		if (++loops >= 8) {
-			loops = 0;
-			System.out.println(console.toString());
+			//follows the movement actions
+			if (xboxMotion.getRawButton(2)) {
+				//put something to test
+			}
+
+			double xboxMotion_z = xboxMotion.getRawAxis(0) / 4;
+
+			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 + xboxMotion_z;
+			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 - xboxMotion_z;
+
+			base.tankDrive(leftSpeed, rightSpeed);
+
+			console.append(base.getAHRS().isConnected() + "\t" +
+					leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" +
+					rightTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t"
+			);
+
+
+			if (++loops >= 8) {
+				loops = 0;
+				System.out.println(console.toString());
+			}
+			console.setLength(0);
 		}
-		console.setLength(0);
 	}
 
-	public void rotateAngle(double angle) {
+	public void rotateAngle(double angle, double timeoutSec) {
 		int sign = angle > 0 ? 1 : -1;
 		AHRS ahrs = base.getAHRS();
 		double trgAngle = ahrs.getAngle() + angle;
-		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled()) {
+		Timer timer = new Timer();
+		timer.start();
+		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled() && timer.get() < timeoutSec) {
 			double error = trgAngle - ahrs.getAngle();
 			error *= sign;
-			double throttle = error/angle/8+ 0.1*sign;
+			double throttle = (error)/angle/8+ 0.12*sign;
 			base.processSpeed(throttle,-throttle);
 		}
+		timer.stop();
 		base.stop();
 	}
 
-	public void moveDistance(double distance) {
+	public void moveDistance(double distance, double timeoutSec) {
 		int sign = distance > 0 ? 1 : -1;
-		double trgPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + distance * 8400;
-		while (sign * leftTalon.getSelectedSensorPosition(kPIDLoopIdx) < sign * trgPosition && isEnabled()) {
-			System.out.println(leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" + trgPosition);
-			double error = trgPosition - leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+		int currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+		double trgPosition = currentPosition + distance * 8200;
+		Timer timer = new Timer();
+		timer.start();
+		while (sign * currentPosition < sign * trgPosition && isEnabled() && timer.get() < timeoutSec) {
+			currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+			double error = trgPosition - currentPosition;
 			error *= sign;
-			double throttle = error/(distance * 8400)/8 + 0.1*sign;
+			double throttle;
+			if (Math.abs(error/8200) < 1) {
+				throttle = error / (distance * 8400) / 8 + 0.1 * sign;
+			} else {
+				throttle = error / (distance * 8400) / 4 + 0.1 * sign;
+			}
 			base.tankDrive(throttle,throttle);
 		}
 		base.stop();

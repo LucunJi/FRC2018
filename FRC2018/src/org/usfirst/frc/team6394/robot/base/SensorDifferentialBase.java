@@ -114,7 +114,7 @@ public class SensorDifferentialBase {
 		leftMotor.set(controlMode, leftSpeed);
 		rightMotor.set(controlMode, rightSpeed);
 	}
-	
+
 	public void tankDrive(double leftSpeed, double rightSpeed){
 		leftSpeed = applyDeadband(leftSpeed, deadband);
 		rightSpeed = applyDeadband(rightSpeed, deadband);
@@ -125,6 +125,8 @@ public class SensorDifferentialBase {
 				straightKeeper.enable();
 			}
 			double throttle = throttleFetcher.getThrottle();
+			if (throttle > 0.05) throttle = 0.05;
+			if (throttle < -0.05) throttle = -0.05;
 			leftSpeed += throttle;
 			rightSpeed -= throttle;
 		} else {
