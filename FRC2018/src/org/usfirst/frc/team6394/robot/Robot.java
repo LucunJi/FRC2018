@@ -130,41 +130,65 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		base.getStraightKeeper().setSetpoint(0);
 		base.getAHRS().reset();
+		intakerLift.set(-0.1);
 	}
 	
 	@Override
 	public void teleopPeriodic() {
 		if (isEnabled() && isOperatorControl()) {
+			
 			//follows the part of functional actions
 
 			//following is code for one-joystick operation
-/*		if (xboxMotion.getRawButton(3)) intaker.set(-0.3);
-		if (xboxMotion.getRawButton(2)) intaker.set(0.3);
-		if (xboxMotion.getRawButton(3)) new Thread(new MotorRunnable(intaker) {
-			@Override
-			public void run() {
-				group.set(-.3);
-				Timer.delay(2);
-				group.set(0);
+			if(xboxMotion.getRawButton(3)){
+				intaker.set(-0.4);
+			}else if(xboxMotion.getRawButton(2)){
+				intaker.set(0.4);
+			}else if (xboxMotion.getRawButton(4)) {
+				intaker.set(0);
+				
 			}
-		}).start();
-		if (xboxMotion.getRawButton(2)) intaker.set(.3);
-		if (xboxMotion.getRawButton(4)) intaker.set(0);
-		
-		if(xboxMotion.getRawButton(5)) lift.set(-xboxMotion.getRawAxis(5)*0.5);
-		
-		double s_intakerlift = xboxMotion.getRawAxis(5)*0.5;
-    	
-		if(xboxMotion.getRawButton(6)) intakerLift.set(s_intakerlift);*/
+			if (xboxMotion.getRawButton(5)) {
+				if (LiftUpper.get() && xboxMotion.getRawAxis(5) != 0) {
+					lift.set(0);
+				} else if (LiftLower.get() && xboxMotion.getRawAxis(5) != 0) {
+					lift.set(0);
+				}else {
+					lift.set(-(-xboxMotion.getRawAxis(5)) * 0.3);
+				}
+			} else {
+				lift.set(0);
+			}
+			if (xboxMotion.getRawButton(6)) {
+				if (intakerLiftUpper.get() && xboxMotion.getRawAxis(5) < 0) {
+					intakerLift.set(-0.1);
+				} else if (intakerLiftLower.get() && xboxMotion.getRawAxis(5) > 0) {
+					intakerLift.set(-0.1);
+				}else if(xboxMotion.getRawAxis(5)>-0.1 && xboxMotion.getRawAxis(5)<0.1){
+					
+					intakerLift.set(-0.1);
+				}else {
+					intakerLift.set(xboxMotion.getRawAxis(5)*0.4);
+				}
+			} else {
+				intakerLift.set(-0.1);
+			}
+
+
+			
+			if (xboxMotion.getRawButton(1)) {
+				//put something to test
+				rotateAngle(90, 100);
+			}
 
 			//following is code for two-joystick operation
-			intaker.set(-xboxFunction.getRawAxis(1) * 0.3);
+/*			intaker.set(-xboxFunction.getRawAxis(1) * 0.3);
 			if (xboxFunction.getRawButton(1)) {
-				if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) {
+				if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) >= 0) {
 					lift.set(0);
-				} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0) {
+				} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) >= 0) {
 					//suosi
-				} else {
+				}else {
 					lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight) + xboxFunction.getTriggerAxis(Hand.kLeft)) * 0.3);
 				}
 			} else {
@@ -184,10 +208,11 @@ public class Robot extends IterativeRobot {
 			}
 
 
-			//follows the movement actions
+			
 			if (xboxMotion.getRawButton(2)) {
 				//put something to test
-			}
+				rotateAngle(90, 10);
+			}*/
 
 			double xboxMotion_z = xboxMotion.getRawAxis(0) / 4;
 
@@ -219,7 +244,7 @@ public class Robot extends IterativeRobot {
 		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled() && timer.get() < timeoutSec) {
 			double error = trgAngle - ahrs.getAngle();
 			error *= sign;
-			double throttle = (error)/angle/8+ 0.12*sign;
+			double throttle = (error)/angle/8+ 0.0695*sign;
 			base.processSpeed(throttle,-throttle);
 		}
 		timer.stop();
