@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
 		if (platePosition == startPosition){// left to left or right to right
-			moveDistance(6, 10);
+/*			moveDistance(6, 10);
 			base.getAHRS().reset();
 			Timer.delay(0.5);
 			rotateAngle(sign*90,  3);
@@ -113,9 +113,14 @@ public class Robot extends IterativeRobot {
 			intakerLift.set(-0.0675);
 			moveDistance(1,3);
 			intaker.set(0.3);
-			Timer.delay(1);
+			Timer.d1elay(1);
 			intaker.set(0);
-			intakerLift.set(0);
+			intakerLift.set(0);*/
+			
+			base.tankDrive(0.3, 0.3);
+			Timer.delay(0.5);
+			base.tankDrive(0.3, -0.3);
+			Timer.delay(0.5);
 		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
 			//left to right or right to left
 			System.out.println("B");
@@ -244,7 +249,7 @@ public class Robot extends IterativeRobot {
 		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled() && timer.get() < timeoutSec) {
 			double error = trgAngle - ahrs.getAngle();
 			error *= sign;
-			double throttle = (error)/angle/8+ 0.0695*sign;
+			double throttle = (error)/angle/8+ 1*sign;
 			base.processSpeed(throttle,-throttle);
 		}
 		timer.stop();
