@@ -15,16 +15,6 @@ import static org.usfirst.frc.team6394.robot.motorController.MotorHelper.*;
 
 public class SensorDifferentialBase {
 	
-	private class ThrottleFetcher implements PIDOutput {
-		private double throttle = 0;
-		@Override public void pidWrite(double output) {
-			throttle = output;
-		}
-		public double getThrottle() {
-			return throttle;
-		}
-	}
-	
 	private final TalonSRX leftMotor;
 	private final TalonSRX rightMotor;
 	private final AHRS ahrs = new AHRS(Port.kMXP);
@@ -34,9 +24,6 @@ public class SensorDifferentialBase {
 	private double velocityCoefficient = 4096 * 500.0 / 600;
 	private double accelerationThreshold = 0;
 	private double directionThreshold = 0;
-	
-	private ThrottleFetcher throttleFetcher = new ThrottleFetcher();
-	private PIDController straightKeeper;
 	
 
 	public SensorDifferentialBase(TalonSRX leftMotor, TalonSRX rightMotor) {
@@ -56,11 +43,6 @@ public class SensorDifferentialBase {
 
 		this.leftMotor = leftMotor;
 		this.rightMotor = rightMotor;
-
-		straightKeeper = new PIDController(0, 0, 0, 0, ahrs, throttleFetcher);
-		straightKeeper.setInputRange(-180,180);
-		straightKeeper.setOutputRange(-1,1);
-		straightKeeper.setAbsoluteTolerance(0);
 	}
 	
 	public void setDeadband(double deadband) {
@@ -80,22 +62,6 @@ public class SensorDifferentialBase {
 	}
 	public void setDirectionThreshold(double directionThreshold) {
 		this.directionThreshold = directionThreshold;
-	}
-	
-	public PIDController getStraightKeeper() {
-		return straightKeeper;
-	}
-	public void setStraightKeeperFgain(double f) {
-		straightKeeper.setF(f);
-	}
-	public void setStraightKeeperPgain(double p) {
-		straightKeeper.setP(p);
-	}
-	public void setStraightKeeperIgain(double i) {
-		straightKeeper.setI(i);
-	}
-	public void setStraightKeeperDgain(double d) {
-		straightKeeper.setD(d);
 	}
 	
 	public AHRS getAHRS(){
@@ -118,20 +84,6 @@ public class SensorDifferentialBase {
 	public void tankDrive(double leftSpeed, double rightSpeed){
 		leftSpeed = applyDeadband(leftSpeed, deadband);
 		rightSpeed = applyDeadband(rightSpeed, deadband);
-		if (leftSpeed == rightSpeed && leftSpeed != 0 &&
-				leftMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0 &&rightMotor.getSelectedSensorVelocity(kPIDLoopIdx) != 0) {
-			if (!straightKeeper.isEnabled()) {
-				straightKeeper.setSetpoint(ahrs.getYaw());
-				straightKeeper.enable();
-			}
-			double throttle = throttleFetcher.getThrottle();
-			if (throttle > 0.05) throttle = 0.05;
-			if (throttle < -0.05) throttle = -0.05;
-			leftSpeed += throttle;
-			rightSpeed -= throttle;
-		} else {
-			if (straightKeeper.isEnabled()) straightKeeper.disable();
-		}
 		processSpeed(leftSpeed, rightSpeed);
 	}
 	

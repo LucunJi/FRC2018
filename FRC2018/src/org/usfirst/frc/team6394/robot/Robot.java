@@ -71,10 +71,6 @@ public class Robot extends IterativeRobot {
 		base.setDeadband(0.1);
 		base.setDirectionThreshold(1100);
 		base.setAccelerationThreshold(1100);
-		base.setStraightKeeperFgain(0);
-		base.setStraightKeeperPgain(0.02);
-		base.setStraightKeeperIgain(0.0005);
-		base.setStraightKeeperDgain(0);
 	}
 	
 	private StringBuilder console = new StringBuilder();
@@ -82,7 +78,6 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		base.getStraightKeeper().setSetpoint(0);
 		base.getAHRS().reset();
 	}
 
@@ -130,14 +125,15 @@ public class Robot extends IterativeRobot {
 		}
 		flag = true;
 	}
-	
+
+	private boolean pastButton4State;
 	@Override
 	public void teleopInit() {
-		base.getStraightKeeper().setSetpoint(0);
 		base.getAHRS().reset();
 		intakerLift.set(-0.1);
+		pastButton4State = xboxMotion.getRawButton(4);
 	}
-	
+
 	@Override
 	public void teleopPeriodic() {
 		if (isEnabled() && isOperatorControl()) {
@@ -183,7 +179,6 @@ public class Robot extends IterativeRobot {
 			
 			if (xboxMotion.getRawButton(1)) {
 				//put something to test
-				rotateAngle(90, 100);
 			}
 
 			//following is code for two-joystick operation
@@ -224,11 +219,21 @@ public class Robot extends IterativeRobot {
 			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 + xboxMotion_z;
 			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 - xboxMotion_z;
 
+			if (xboxMotion.getRawButton(4) && !pastButton4State)
+				base.getAHRS().reset();
+			if (xboxMotion.getRawButton(4) && base.getAHRS().isConnected()) {
+				double throttle = (0 - base.getAHRS().getAngle()) * 0.01;
+				if (throttle > 0.05) throttle = 0.05;
+				if (throttle < -0.05) throttle = -0.05;
+				leftSpeed += throttle;
+				rightSpeed -= throttle;
+			}
+
+
 			base.tankDrive(leftSpeed, rightSpeed);
 
-			console.append(base.getAHRS().isConnected() + "\t" +
-					leftTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t" +
-					rightTalon.getSelectedSensorPosition(kPIDLoopIdx) + "\t"
+			console.append(base.getAHRS().isConnected() +
+					"\t" + base.getAHRS().getAngle()
 			);
 
 
@@ -237,10 +242,12 @@ public class Robot extends IterativeRobot {
 				System.out.println(console.toString());
 			}
 			console.setLength(0);
+
+			pastButton4State = xboxMotion.getRawButton(4);
 		}
 	}
 
-	public void rotateAngle(double angle, double timeoutSec) {
+	/*public void rotateAngle(double angle, double timeoutSec) {
 		int sign = angle > 0 ? 1 : -1;
 		AHRS ahrs = base.getAHRS();
 		double trgAngle = ahrs.getAngle() + angle;
@@ -275,5 +282,5 @@ public class Robot extends IterativeRobot {
 			base.tankDrive(throttle,throttle);
 		}
 		base.stop();
-	}
+	}*/
 }
