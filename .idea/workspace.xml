@@ -22,12 +22,9 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="224" column="73" lean-forward="true" selection-start-line="224" selection-start-column="73" selection-end-line="224" selection-end-column="73" />
-              <folding>
-                <element signature="e#3270#3271#0" expanded="true" />
-                <element signature="e#3299#3300#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1006">
+              <caret line="127" column="23" lean-forward="false" selection-start-line="126" selection-start-column="20" selection-end-line="127" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -35,8 +32,8 @@
       <file leaf-file-name="SensorDifferentialBase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-648">
-              <caret line="44" column="37" lean-forward="false" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+            <state relative-caret-position="388">
+              <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
               <folding>
                 <element signature="e#1784#1785#0" expanded="true" />
                 <element signature="e#1815#1816#0" expanded="true" />
@@ -48,9 +45,19 @@
                 <element signature="e#2274#2275#0" expanded="true" />
                 <element signature="e#2300#2301#0" expanded="true" />
                 <element signature="e#2318#2319#0" expanded="true" />
-                <element signature="e#3104#3105#0" expanded="true" />
-                <element signature="e#3126#3127#0" expanded="true" />
+                <element signature="e#3103#3104#0" expanded="true" />
+                <element signature="e#3125#3126#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MotorHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/motorController/MotorHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,10 +124,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -138,6 +145,13 @@
               <item name="FRC2018" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FRC2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FRC2018" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="motorController" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -430,6 +444,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -443,8 +458,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22800429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32611173" sideWeight="0.49785408" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23122318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="FRC" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32611173" sideWeight="0.49785408" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24944568" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -470,7 +485,8 @@
     <MESSAGE value="limit switch added" />
     <MESSAGE value="auto-rotation and auto-moving are nearly finished" />
     <MESSAGE value="part of unstable autonomous is done&#10;unstable:&#10;automatic move straight&#10;automatic turn angle&#10;part of automatic autonomous&#10;move straight in operator control&#10;&#10;unfinished:&#10;parts of automatic" />
-    <option name="LAST_COMMIT_MESSAGE" value="part of unstable autonomous is done&#10;unstable:&#10;automatic move straight&#10;automatic turn angle&#10;part of automatic autonomous&#10;move straight in operator control&#10;&#10;unfinished:&#10;parts of automatic" />
+    <MESSAGE value="untested small changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="untested small changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -498,12 +514,38 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1056">
+          <caret line="44" column="37" lean-forward="false" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+          <folding>
+            <element signature="e#1784#1785#0" expanded="true" />
+            <element signature="e#1815#1816#0" expanded="true" />
+            <element signature="e#1872#1873#0" expanded="true" />
+            <element signature="e#1909#1910#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2030#2031#0" expanded="true" />
+            <element signature="e#2223#2224#0" expanded="true" />
+            <element signature="e#2274#2275#0" expanded="true" />
+            <element signature="e#2300#2301#0" expanded="true" />
+            <element signature="e#2318#2319#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5424">
           <caret line="226" column="5" lean-forward="false" selection-start-line="226" selection-start-column="5" selection-end-line="226" selection-end-column="5" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -522,8 +564,8 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -532,10 +574,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -554,8 +593,8 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -564,10 +603,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -586,8 +622,8 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -596,10 +632,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -618,8 +651,8 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -628,10 +661,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -650,8 +680,8 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -660,10 +690,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -678,10 +705,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -689,10 +713,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -700,10 +721,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -711,10 +729,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -722,10 +737,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -733,10 +745,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -772,10 +781,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="64" column="57" lean-forward="true" selection-start-line="64" selection-start-column="57" selection-end-line="64" selection-end-column="57" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -783,10 +789,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -794,10 +797,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -857,10 +857,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/motorController/MotorHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-648">
-          <caret line="44" column="37" lean-forward="false" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+        <state relative-caret-position="388">
+          <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
           <folding>
             <element signature="e#1784#1785#0" expanded="true" />
             <element signature="e#1815#1816#0" expanded="true" />
@@ -872,20 +880,17 @@
             <element signature="e#2274#2275#0" expanded="true" />
             <element signature="e#2300#2301#0" expanded="true" />
             <element signature="e#2318#2319#0" expanded="true" />
-            <element signature="e#3104#3105#0" expanded="true" />
-            <element signature="e#3126#3127#0" expanded="true" />
+            <element signature="e#3103#3104#0" expanded="true" />
+            <element signature="e#3125#3126#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="224" column="73" lean-forward="true" selection-start-line="224" selection-start-column="73" selection-end-line="224" selection-end-column="73" />
-          <folding>
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3299#3300#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1006">
+          <caret line="127" column="23" lean-forward="false" selection-start-line="126" selection-start-column="20" selection-end-line="127" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

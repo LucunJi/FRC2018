@@ -156,6 +156,7 @@ public class Robot extends IterativeRobot {
 			System.out.println("C");
 		}
 		flag = true;
+		base.setControlMode(ControlMode.Velocity);
 	}
 
 	private boolean pastButton1State;

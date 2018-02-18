@@ -72,11 +72,10 @@ public class SensorDifferentialBase {
 		if (controlMode == ControlMode.Velocity) {
 			leftSpeed *= velocityCoefficient;
 			rightSpeed *= velocityCoefficient;
+			leftSpeed = applyAllSmoother(leftMotor.getSelectedSensorVelocity(kPIDLoopIdx), leftSpeed, accelerationThreshold, directionThreshold);
+			rightSpeed = applyAllSmoother(rightMotor.getSelectedSensorVelocity(kPIDLoopIdx), rightSpeed, accelerationThreshold, directionThreshold);
 		}
-	
-		leftSpeed = applyAllSmoother(leftMotor.getSelectedSensorVelocity(kPIDLoopIdx), leftSpeed, accelerationThreshold, directionThreshold);
-		rightSpeed = applyAllSmoother(rightMotor.getSelectedSensorVelocity(kPIDLoopIdx), rightSpeed, accelerationThreshold, directionThreshold);
-	
+
 		leftMotor.set(controlMode, leftSpeed);
 		rightMotor.set(controlMode, rightSpeed);
 	}
