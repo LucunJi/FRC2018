@@ -44,6 +44,13 @@ public class Robot extends IterativeRobot {
 	private DigitalInput LiftLower = new DigitalInput(3);
 	//Change this to adapt to different start position
 	private final Position startPosition = Position.LEFT;
+	double forwardLeftPercentage = 0.385;
+	double forwardRightPercentage = 0.385;
+	double backwardLeftPercentage = 0;
+	double backwardRightPercentage = 0;
+	double turningLeftPercentage = -0.2;
+	double turningRightPercentage = 0.2;
+	
 	
 	
 	@Override	
@@ -52,10 +59,10 @@ public class Robot extends IterativeRobot {
 		rightVictor.follow(rightTalon);
 		rightTalon.setInverted(true);
 		rightVictor.setInverted(true);
-		leftTalon.setNeutralMode(NeutralMode.Coast);
-		rightTalon.setNeutralMode(NeutralMode.Coast);
-		leftVictor.setNeutralMode(NeutralMode.Coast);
-		rightVictor.setNeutralMode(NeutralMode.Coast);
+		leftTalon.setNeutralMode(NeutralMode.Brake);
+		rightTalon.setNeutralMode(NeutralMode.Brake);
+		leftVictor.setNeutralMode(NeutralMode.Brake);
+		rightVictor.setNeutralMode(NeutralMode.Brake);
 		
 		leftTalon.config_kF(kPIDLoopIdx, 0.4158, kTimeoutMs);
 		leftTalon.config_kP(kPIDLoopIdx, 0.1, kTimeoutMs);
@@ -88,34 +95,56 @@ public class Robot extends IterativeRobot {
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
 		if (platePosition == startPosition){// left to left or right to right
-/*			moveDistance(6, 10);
-			base.getAHRS().reset();
-			Timer.delay(0.5);
-			rotateAngle(sign*90,  3);
-			Timer.delay(0.5);
-			moveDistance(1, 3);
-			Timer.delay(0.5);
-			rotateAngle(sign*90, 5);
-			Timer.delay(0.5);
-			intaker.set(-0.3);
-			leftTalon.set(ControlMode.PercentOutput,0.08);
-			rightTalon.set(ControlMode.PercentOutput,0.08);
-			Timer.delay(2);
+			//driving to the preparation position
+			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+			Timer.delay(5);
 			base.stop();
-			intakerLift.set(-0.3);
-			Timer.delay(3);
-			intaker.set(0);
-			intakerLift.set(-0.0675);
-			moveDistance(1,3);
-			intaker.set(0.3);
-			Timer.d1elay(1);
-			intaker.set(0);
-			intakerLift.set(0);*/
+//			Timer.delay(1.5);
 			
-			base.tankDrive(0.3, 0.3);
-			Timer.delay(0.5);
-			base.tankDrive(0.3, -0.3);
-			Timer.delay(0.5);
+			
+//			//turn 90 degrees left
+//			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+//			Timer.delay(1.1);
+//			base.tankDrive(0, 0);
+////			Timer.delay(0.2);
+//			
+//			
+//			//driving 1.181m to the second turning point
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(1.1655);
+//			base.tankDrive(0, 0);
+////			Timer.delay(0.2);
+//			//turn 90 degrees left
+//			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+//			Timer.delay(1.123);
+//			base.tankDrive(0, 0);
+//			
+//			
+//			//enable intaker
+//			intaker.set(-1);
+//			//drive 0.7m forward to get the cube
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.9);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.1);
+//			
+//			intaker.set(0);
+//			
+//			Timer.delay(0.5);
+//			
+//			//lifting the intaker
+//			intakerLift.set(-1);
+//			Timer.delay(0.5);
+//			intakerLift.set(-0.1);
+//			//driving forward a little to touch the wall
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.5);
+//			base.tankDrive(0, 0);
+////			Timer.delay(0.2);
+//			//shooting the cube
+//			intaker.set(0.3);
+//			Timer.delay(0.5);
+//			intaker.set(0);
 		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
 			//left to right or right to left
 			System.out.println("B");
@@ -142,9 +171,9 @@ public class Robot extends IterativeRobot {
 
 			//following is code for one-joystick operation
 			if(xboxMotion.getRawButton(3)){
-				intaker.set(-0.4);
+				intaker.set(-1);
 			}else if(xboxMotion.getRawButton(2)){
-				intaker.set(0.4);
+				intaker.set(1);
 			}else if (xboxMotion.getRawButton(4)) {
 				intaker.set(0);
 				
@@ -214,10 +243,10 @@ public class Robot extends IterativeRobot {
 				rotateAngle(90, 10);
 			}*/
 
-			double xboxMotion_z = xboxMotion.getRawAxis(0) / 4;
+			double xboxMotion_z = xboxMotion.getRawAxis(0) / 2;
 
-			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 + xboxMotion_z;
-			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) / 2 - xboxMotion_z;
+			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2))  + xboxMotion_z;
+			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2))  - xboxMotion_z;
 
 			if (xboxMotion.getRawButton(4) && !pastButton4State)
 				base.getAHRS().reset();
