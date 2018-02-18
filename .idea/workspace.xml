@@ -4,7 +4,6 @@
     <list default="true" id="ec3fe80a-8a47-40bd-af87-f9edce7eae15" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java" afterPath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java" />
-      <change beforePath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java" afterPath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java" />
     </list>
     <ignored path="$PROJECT_DIR$/FRC2018/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +21,8 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1006">
-              <caret line="127" column="23" lean-forward="false" selection-start-line="126" selection-start-column="20" selection-end-line="127" selection-end-column="23" />
+            <state relative-caret-position="214">
+              <caret line="94" column="24" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -32,7 +31,7 @@
       <file leaf-file-name="SensorDifferentialBase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
+            <state relative-caret-position="853">
               <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
               <folding>
                 <element signature="e#1784#1785#0" expanded="true" />
@@ -103,9 +102,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="263" />
-    <option name="y" value="-22" />
-    <option name="width" value="1114" />
+    <option name="x" value="150" />
+    <option name="y" value="-27" />
+    <option name="width" value="1394" />
     <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -430,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1518621126088</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="untested small changes">
+      <created>1518950963431</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1518950963431</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -867,7 +873,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
+        <state relative-caret-position="853">
           <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
           <folding>
             <element signature="e#1784#1785#0" expanded="true" />
@@ -888,8 +894,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1006">
-          <caret line="127" column="23" lean-forward="false" selection-start-line="126" selection-start-column="20" selection-end-line="127" selection-end-column="23" />
+        <state relative-caret-position="214">
+          <caret line="94" column="24" lean-forward="true" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
           <folding />
         </state>
       </provider>

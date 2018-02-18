@@ -73,8 +73,7 @@ public class Robot extends IterativeRobot {
 		rightTalon.config_kP(kPIDLoopIdx, 0.1, kTimeoutMs);
 		rightTalon.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 		rightTalon.config_kD(kPIDLoopIdx, 4, kTimeoutMs);
-		
-		base.setControlMode(ControlMode.Velocity);
+
 		base.setDeadband(0.1);
 		base.setDirectionThreshold(1100);
 		base.setAccelerationThreshold(1100);
@@ -92,7 +91,10 @@ public class Robot extends IterativeRobot {
 	boolean flag = false;
 	@Override
 	public void autonomousPeriodic() {
-		if (flag) return;
+		if (flag) {
+			base.stop();
+			return;
+		}
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
 		if (platePosition == startPosition){// left to left or right to right
