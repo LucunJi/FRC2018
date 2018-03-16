@@ -10,8 +10,10 @@ package org.usfirst.frc.team6394.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
-
+import edu.wpi.first.wpilibj.CameraServer;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
@@ -44,8 +46,8 @@ public class Robot extends IterativeRobot {
 	private DigitalInput LiftLower = new DigitalInput(3);
 	//Change this to adapt to different start position
 	private final Position startPosition = Position.LEFT;
-	double forwardLeftPercentage = 0.396;
-	double forwardRightPercentage = 0.385;
+	double forwardLeftPercentage = 0.42;
+	double forwardRightPercentage = 0.42;
 	double backwardLeftPercentage = 0;
 	double backwardRightPercentage = 0;
 	double turningLeftPercentage = -0.2;
@@ -77,18 +79,27 @@ public class Robot extends IterativeRobot {
 		base.setDeadband(0.1);
 		base.setDirectionThreshold(1100);
 		base.setAccelerationThreshold(1100);
+		UsbCamera camera0 = CameraServer.getInstance().startAutomaticCapture(0);
+		camera0.setResolution(400,200);
+		camera0.setFPS(30);
+		
+		
+		
+		
 	}
 	
 	private StringBuilder console = new StringBuilder();
 	private int loops = 0;
 	
+
+	boolean flag;
 	@Override
 	public void autonomousInit() {
 		base.getAHRS().reset();
-		base.setControlMode(ControlMode.Velocity);
+		base.setControlMode(ControlMode.PercentOutput);
+		flag = false;
 	}
 
-	boolean flag = false;
 	@Override
 	public void autonomousPeriodic() {
 		if (flag) {
@@ -98,30 +109,148 @@ public class Robot extends IterativeRobot {
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
 		if (platePosition == startPosition){// left to left or right to right
-			//driving to the preparation position
+			
+//			//driving to the preparation position
+//			
+//			
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(4.8);
+//			base.stop();
+//			Timer.delay(1.5);
+//			
+//			
+//			//turn 90 degrees left
+////			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+////			Timer.delay(1.1);
+////			base.tankDrive(0, 0);
+//			rotateAngle(-90, 500);
+////			Timer.delay(0.2);
+//			
+//			
+//			//driving 1.181m to the second turning point
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.87);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+//			//turn 90 degrees left
+////			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+////			Timer.delay(1.215);
+////			base.tankDrive(0, 0);
+//			rotateAngle(-90, 500);
+//			
+//			
+//			//enable intaker
+//			intaker.set(-1);
+//			//drive 0.7m forward to get the cube
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(1.1);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.1);
+//			
+//			intaker.set(0);
+//			
+//			Timer.delay(0.5);
+//			
+//			//lifting the intaker
+//			intakerLift.set(-1);
+//			Timer.delay(0.5);
+//			intakerLift.set(-0.1);
+//			//driving forward a little to touch the wall
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.5);
+//			base.tankDrive(0, 0);
+////			Timer.delay(0.2);
+//			//shooting the cube
+//			intaker.set(0.3);
+//			Timer.delay(0.5);
+//			intaker.set(0);
+			
+			
+			
+			
+			
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.6);
+//			base.stop();
+//			Timer.delay(1.5);
+//			
+//			
+//			base.tankDrive(turningRightPercentage, turningLeftPercentage);
+//			Timer.delay(1.33);
+//			base.tankDrive(0, 0);
+//			
+//			
+//			//driving 1.181m*3 to the second turning point
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(2.3);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+//			//turn 90 degrees left
+//			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+//			Timer.delay(1.1);
+//			base.tankDrive(0, 0);
+//			//drive forward 3m
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(2.6);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+			
+			
+			
+			
+			
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(0.6);
+//			base.stop();
+//			Timer.delay(1.5);
+//			
+//			
+			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+			Timer.delay(1.4);
+			base.tankDrive(0, 0);
+			Timer.delay(2);
+//			
+//			
+//			//driving 1.181m*3 to the second turning point
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(2.3);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+			//turn 90 degrees left
+			
+			base.tankDrive(turningRightPercentage, turningLeftPercentage);
+			Timer.delay(1.33);
+			base.tankDrive(0, 0);
+//			//drive forward 3m
+//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//			Timer.delay(2.6);
+//			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+			
+		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
+//driving to the preparation position
 			
 			
 			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(4.3);
+			Timer.delay(4.8);
 			base.stop();
 			Timer.delay(1.5);
 			
 			
-			//turn 90 degrees left
-			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-			Timer.delay(0.72);
+			//turn 90 degrees right
+			base.tankDrive(turningRightPercentage, turningLeftPercentage);
+			Timer.delay(1.44);
 			base.tankDrive(0, 0);
 //			Timer.delay(0.2);
-			
 			
 			//driving 1.181m to the second turning point
 			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(1.1655);
+			Timer.delay(1);
 			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			//turn 90 degrees left
-			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-			Timer.delay(0.72);
+			Timer.delay(0.2);
+			//turn 90 degrees right
+			base.tankDrive(turningRightPercentage, turningLeftPercentage);
+			Timer.delay(1.2);
 			base.tankDrive(0, 0);
 			
 			
@@ -150,11 +279,57 @@ public class Robot extends IterativeRobot {
 			intaker.set(0.3);
 			Timer.delay(0.5);
 			intaker.set(0);
-		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
-			//left to right or right to left
+			
+			
+			
+			
 			System.out.println("B");
 		} else {
-			//middle to left or right
+			//driving to the preparation position
+			
+			
+			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			Timer.delay(1.5);
+			
+			
+			//turn 90 degrees right
+			base.tankDrive(turningRightPercentage, turningLeftPercentage);
+			Timer.delay(1.44);
+			base.tankDrive(0, 0);
+//			Timer.delay(0.2);
+			
+			
+			//driving 1.181m*3 to the second turning point
+			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+			Timer.delay(3);
+			base.tankDrive(0, 0);
+			Timer.delay(0.2);
+			//turn 90 degrees left
+			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+			Timer.delay(1.2);
+			base.tankDrive(0, 0);
+			//drive forward 3m
+			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+			Timer.delay(2.5);
+			base.tankDrive(0, 0);
+			Timer.delay(0.2);
+			//turn left
+			base.tankDrive(turningLeftPercentage, turningRightPercentage);
+			Timer.delay(1.2);
+			base.tankDrive(0, 0);
+			//forward 3m
+			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+			Timer.delay(2.5);
+			base.tankDrive(0, 0);
+			Timer.delay(0.2);
+			
+			
+			
+			
+			
+			
 			System.out.println("C");
 		}
 		flag = true;
@@ -180,7 +355,7 @@ public class Robot extends IterativeRobot {
 /*			if(xboxMotion.getRawButton(3)){
 				intaker.set(-1);
 			}else if(xboxMotion.getRawButton(2)){
-				intaker.set(1);
+				intaker.set(0.5);
 			}else if (xboxMotion.getRawButton(4)) {
 				intaker.set(0);
 				
@@ -209,23 +384,21 @@ public class Robot extends IterativeRobot {
 				}
 			} else {
 				intakerLift.set(-0.1);
-			}
+			}*/
 
 
 			
-			if (xboxMotion.getRawButton(1)) {
-				//put something to test
-			}*/
+			
 
 			//following is code for two-joystick operation
-			intaker.set(-xboxFunction.getRawAxis(1) * 0.5);
 			if (xboxFunction.getRawButton(1)) {
-				if (LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) >= 0) {
+				if ((LiftUpper.get() && xboxFunction.getTriggerAxis(Hand.kRight) > 0) ||
+						(LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) > 0)) {
+					lift.set(0.018);
+				} else if (xboxFunction.getTriggerAxis(Hand.kRight) == 0 && xboxFunction.getTriggerAxis(Hand.kLeft) == 0) {
 					lift.set(0);
-				} else if (LiftLower.get() && xboxFunction.getTriggerAxis(Hand.kLeft) >= 0) {
-					//suosi
-				}else {
-					lift.set(-(-xboxFunction.getTriggerAxis(Hand.kRight) + xboxFunction.getTriggerAxis(Hand.kLeft))*0.5 );
+				} else {
+					lift.set((xboxFunction.getTriggerAxis(Hand.kRight) - xboxFunction.getTriggerAxis(Hand.kLeft))*0.5 );
 				}
 			} else {
 				lift.set(0);
@@ -242,6 +415,7 @@ public class Robot extends IterativeRobot {
 			} else {
 				intakerLift.set(0);
 			}
+			intaker.set(-xboxFunction.getRawAxis(1)*0.5);
 
 
 			
@@ -268,22 +442,22 @@ public class Robot extends IterativeRobot {
 
 			base.tankDrive(leftSpeed, rightSpeed);
 
-			console.append(base.getAHRS().isConnected() +
-					"\t" + base.getAHRS().getAngle()
-			);
-
-
-			if (++loops >= 8) {
-				loops = 0;
-				System.out.println(console.toString());
-			}
-			console.setLength(0);
+//			console.append(base.getAHRS().isConnected() +
+//					"\t" + base.getAHRS().getAngle()
+//			);
+//
+//
+//			if (++loops >= 8) {
+//				loops = 0;
+//				System.out.println(console.toString());
+//			}
+//			console.setLength(0);
 
 			pastButton1State = xboxMotion.getRawButton(1);
 		}
 	}
 
-	/*public void rotateAngle(double angle, double timeoutSec) {
+	public void rotateAngle(double angle, double timeoutSec) {
 		int sign = angle > 0 ? 1 : -1;
 		AHRS ahrs = base.getAHRS();
 		double trgAngle = ahrs.getAngle() + angle;
@@ -292,14 +466,14 @@ public class Robot extends IterativeRobot {
 		while (sign * ahrs.getAngle() < sign * trgAngle && isEnabled() && timer.get() < timeoutSec) {
 			double error = trgAngle - ahrs.getAngle();
 			error *= sign;
-			double throttle = (error)/angle/8+ 1*sign;
+			double throttle = (error)/angle/8+ 0.091*sign;
 			base.processSpeed(throttle,-throttle);
 		}
 		timer.stop();
 		base.stop();
 	}
 
-	public void moveDistance(double distance, double timeoutSec) {
+/*	public void moveDistance(double distance, double timeoutSec) {
 		int sign = distance > 0 ? 1 : -1;
 		int currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
 		double trgPosition = currentPosition + distance * 8200;
