@@ -107,231 +107,21 @@ public class Robot extends IterativeRobot {
 			return;
 		}
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
-		int sign = (platePosition == Position.LEFT) ? 1 : -1;//positive for left side movement and vice versa
-		if (platePosition == startPosition){// left to left or right to right
-			
-//			//driving to the preparation position
-//			
-//			
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(4.8);
-//			base.stop();
-//			Timer.delay(1.5);
-//			
-//			
-//			//turn 90 degrees left
-////			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-////			Timer.delay(1.1);
-////			base.tankDrive(0, 0);
-//			rotateAngle(-90, 500);
-////			Timer.delay(0.2);
-//			
-//			
-//			//driving 1.181m to the second turning point
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(0.87);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-//			//turn 90 degrees left
-////			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-////			Timer.delay(1.215);
-////			base.tankDrive(0, 0);
-//			rotateAngle(-90, 500);
-//			
-//			
-//			//enable intaker
-//			intaker.set(-1);
-//			//drive 0.7m forward to get the cube
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(1.1);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.1);
-//			
-//			intaker.set(0);
-//			
-//			Timer.delay(0.5);
-//			
-//			//lifting the intaker
-//			intakerLift.set(-1);
-//			Timer.delay(0.5);
-//			intakerLift.set(-0.1);
-//			//driving forward a little to touch the wall
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(0.5);
-//			base.tankDrive(0, 0);
-////			Timer.delay(0.2);
-//			//shooting the cube
-//			intaker.set(0.3);
-//			Timer.delay(0.5);
-//			intaker.set(0);
-			
-			
-			
-			
-			
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(0.6);
-//			base.stop();
-//			Timer.delay(1.5);
-//			
-//			
-//			base.tankDrive(turningRightPercentage, turningLeftPercentage);
-//			Timer.delay(1.33);
-//			base.tankDrive(0, 0);
-//			
-//			
-//			//driving 1.181m*3 to the second turning point
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(2.3);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-//			//turn 90 degrees left
-//			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-//			Timer.delay(1.1);
-//			base.tankDrive(0, 0);
-//			//drive forward 3m
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(2.6);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			
-			
-			
-			
-			
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(0.6);
-//			base.stop();
-//			Timer.delay(1.5);
-//			
-//			
-			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-			Timer.delay(1.4);
-			base.tankDrive(0, 0);
-			Timer.delay(2);
-//			
-//			
-//			//driving 1.181m*3 to the second turning point
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(2.3);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			//turn 90 degrees left
-			
-			base.tankDrive(turningRightPercentage, turningLeftPercentage);
-			Timer.delay(1.33);
-			base.tankDrive(0, 0);
-//			//drive forward 3m
-//			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-//			Timer.delay(2.6);
-//			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			
-		} else if (platePosition != startPosition && startPosition != Position.MIDDLE) {
-//driving to the preparation position
-			
-			
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(4.8);
-			base.stop();
-			Timer.delay(1.5);
-			
-			
-			//turn 90 degrees right
-			base.tankDrive(turningRightPercentage, turningLeftPercentage);
-			Timer.delay(1.44);
-			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			
-			//driving 1.181m to the second turning point
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(1);
-			base.tankDrive(0, 0);
-			Timer.delay(0.2);
-			//turn 90 degrees right
-			base.tankDrive(turningRightPercentage, turningLeftPercentage);
-			Timer.delay(1.2);
-			base.tankDrive(0, 0);
-			
-			
-			//enable intaker
-			intaker.set(-1);
-			//drive 0.7m forward to get the cube
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(0.9);
-			base.tankDrive(0, 0);
-			Timer.delay(0.1);
-			
-			intaker.set(0);
-			
-			Timer.delay(0.5);
-			
-			//lifting the intaker
-			intakerLift.set(-1);
-			Timer.delay(0.5);
-			intakerLift.set(-0.1);
-			//driving forward a little to touch the wall
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			//shooting the cube
-			intaker.set(0.3);
-			Timer.delay(0.5);
-			intaker.set(0);
-			
-			
-			
-			
-			System.out.println("B");
-		} else {
-			//driving to the preparation position
-			
-			
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(1);
-			base.stop();
-			Timer.delay(1.5);
-			
-			
-			//turn 90 degrees right
-			base.tankDrive(turningRightPercentage, turningLeftPercentage);
-			Timer.delay(1.44);
-			base.tankDrive(0, 0);
-//			Timer.delay(0.2);
-			
-			
-			//driving 1.181m*3 to the second turning point
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(3);
-			base.tankDrive(0, 0);
-			Timer.delay(0.2);
-			//turn 90 degrees left
-			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-			Timer.delay(1.2);
-			base.tankDrive(0, 0);
-			//drive forward 3m
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(2.5);
-			base.tankDrive(0, 0);
-			Timer.delay(0.2);
-			//turn left
-			base.tankDrive(turningLeftPercentage, turningRightPercentage);
-			Timer.delay(1.2);
-			base.tankDrive(0, 0);
-			//forward 3m
-			base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-			Timer.delay(2.5);
-			base.tankDrive(0, 0);
-			Timer.delay(0.2);
-			
-			
-			
-			
-			
-			
-			System.out.println("C");
+
+		if (startPosition == Position.LEFT && platePosition == Position.LEFT) {
+
+		} else if (startPosition == Position.LEFT && platePosition == Position.RIGHT) {
+
+		} else if (startPosition == Position.RIGHT && platePosition == Position.LEFT) {
+
+		} else if (startPosition == Position.RIGHT && platePosition == Position.RIGHT) {
+
+		} else if (startPosition == Position.MIDDLE && platePosition == Position.LEFT) {
+
+		} else if (startPosition == Position.MIDDLE && platePosition == Position.RIGHT) {
+
 		}
+
 		flag = true;
 		base.setControlMode(ControlMode.Velocity);
 	}
@@ -350,41 +140,41 @@ public class Robot extends IterativeRobot {
 		if (isEnabled() && isOperatorControl()) {
 			
 			//follows the part of functional actions
-
+//
 			//following is code for one-joystick operation
-/*			if(xboxMotion.getRawButton(3)){
-				intaker.set(-1);
-			}else if(xboxMotion.getRawButton(2)){
-				intaker.set(0.5);
-			}else if (xboxMotion.getRawButton(4)) {
-				intaker.set(0);
-				
-			}
-			if (xboxMotion.getRawButton(5)) {
-				if (LiftUpper.get() && xboxMotion.getRawAxis(5) != 0) {
-					lift.set(0);
-				} else if (LiftLower.get() && xboxMotion.getRawAxis(5) != 0) {
-					lift.set(0);
-				}else {
-					lift.set(-(-xboxMotion.getRawAxis(5)) * 0.3);
-				}
-			} else {
-				lift.set(0);
-			}
-			if (xboxMotion.getRawButton(6)) {
-				if (intakerLiftUpper.get() && xboxMotion.getRawAxis(5) < 0) {
-					intakerLift.set(-0.1);
-				} else if (intakerLiftLower.get() && xboxMotion.getRawAxis(5) > 0) {
-					intakerLift.set(-0.1);
-				}else if(xboxMotion.getRawAxis(5)>-0.1 && xboxMotion.getRawAxis(5)<0.1){
-					
-					intakerLift.set(-0.1);
-				}else {
-					intakerLift.set(xboxMotion.getRawAxis(5)*0.4);
-				}
-			} else {
-				intakerLift.set(-0.1);
-			}*/
+//			if(xboxMotion.getRawButton(3)){
+//				intaker.set(-1);
+//			}else if(xboxMotion.getRawButton(2)){
+//				intaker.set(0.5);
+//			}else if (xboxMotion.getRawButton(4)) {
+//				intaker.set(0);
+//
+//			}
+//			if (xboxMotion.getRawButton(5)) {
+//				if (LiftUpper.get() && xboxMotion.getRawAxis(5) != 0) {
+//					lift.set(0);
+//				} else if (LiftLower.get() && xboxMotion.getRawAxis(5) != 0) {
+//					lift.set(0);
+//				}else {
+//					lift.set(-(-xboxMotion.getRawAxis(5)) * 0.3);
+//				}
+//			} else {
+//				lift.set(0);
+//			}
+//			if (xboxMotion.getRawButton(6)) {
+//				if (intakerLiftUpper.get() && xboxMotion.getRawAxis(5) < 0) {
+//					intakerLift.set(-0.1);
+//				} else if (intakerLiftLower.get() && xboxMotion.getRawAxis(5) > 0) {
+//					intakerLift.set(-0.1);
+//				}else if(xboxMotion.getRawAxis(5)>-0.1 && xboxMotion.getRawAxis(5)<0.1){
+//
+//					intakerLift.set(-0.1);
+//				}else {
+//					intakerLift.set(xboxMotion.getRawAxis(5)*0.4);
+//				}
+//			} else {
+//				intakerLift.set(-0.1);
+//			}
 
 
 			
@@ -473,24 +263,24 @@ public class Robot extends IterativeRobot {
 		base.stop();
 	}
 
-/*	public void moveDistance(double distance, double timeoutSec) {
-		int sign = distance > 0 ? 1 : -1;
-		int currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
-		double trgPosition = currentPosition + distance * 8200;
-		Timer timer = new Timer();
-		timer.start();
-		while (sign * currentPosition < sign * trgPosition && isEnabled() && timer.get() < timeoutSec) {
-			currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
-			double error = trgPosition - currentPosition;
-			error *= sign;
-			double throttle;
-			if (Math.abs(error/8200) < 1) {
-				throttle = error / (distance * 8400) / 8 + 0.1 * sign;
-			} else {
-				throttle = error / (distance * 8400) / 4 + 0.1 * sign;
-			}
-			base.tankDrive(throttle,throttle);
-		}
-		base.stop();
-	}*/
+//	public void moveDistance(double distance, double timeoutSec) {
+//		int sign = distance > 0 ? 1 : -1;
+//		int currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+//		double trgPosition = currentPosition + distance * 8200;
+//		Timer timer = new Timer();
+//		timer.start();
+//		while (sign * currentPosition < sign * trgPosition && isEnabled() && timer.get() < timeoutSec) {
+//			currentPosition = leftTalon.getSelectedSensorPosition(kPIDLoopIdx);
+//			double error = trgPosition - currentPosition;
+//			error *= sign;
+//			double throttle;
+//			if (Math.abs(error/8200) < 1) {
+//				throttle = error / (distance * 8400) / 8 + 0.1 * sign;
+//			} else {
+//				throttle = error / (distance * 8400) / 4 + 0.1 * sign;
+//			}
+//			base.tankDrive(throttle,throttle);
+//		}
+//		base.stop();
+//	}
 }
