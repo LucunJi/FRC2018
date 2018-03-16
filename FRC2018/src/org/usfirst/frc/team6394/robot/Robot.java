@@ -50,8 +50,8 @@ public class Robot extends IterativeRobot {
 	double forwardRightPercentage = 0.42;
 	double backwardLeftPercentage = 0;
 	double backwardRightPercentage = 0;
-	double turningLeftPercentage = -0.2;
-	double turningRightPercentage = 0.2;
+	double turningLeftPercentage = -0.3;
+	double turningRightPercentage = 0.3;
 	
 	
 	
@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		base.setDirectionThreshold(1100);
 		base.setAccelerationThreshold(1100);
 		UsbCamera camera0 = CameraServer.getInstance().startAutomaticCapture(0);
-		camera0.setResolution(400,200);
+		camera0.setResolution(300,200);
 		camera0.setFPS(30);
 		
 		
@@ -108,16 +108,133 @@ public class Robot extends IterativeRobot {
 		}
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
 
-		if (startPosition == Position.LEFT && platePosition == Position.LEFT) {
+		if (startPosition == Position.LEFT) {
+			base.tankDrive(forwardLeftPercentage*1.5,forwardRightPercentage*1.5);
+			Timer.delay(2.8);
+			base.stop();
+			Timer.delay(1.5);
 
-		} else if (startPosition == Position.LEFT && platePosition == Position.RIGHT) {
+			base.tankDrive(turningRightPercentage,turningLeftPercentage);
+			Timer.delay(0.9);
+			base.stop();
+			Timer.delay(0.5);
 
-		} else if (startPosition == Position.RIGHT && platePosition == Position.LEFT) {
+			if (platePosition == Position.LEFT) {
+				base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+				Timer.delay(0.9);
+				base.stop();
+				Timer.delay(0.5);
+			} else {
+				base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+				Timer.delay(3.5);
+				base.stop();
+				Timer.delay(0.5);
+			}
 
-		} else if (startPosition == Position.RIGHT && platePosition == Position.RIGHT) {
+			base.tankDrive(turningRightPercentage,turningLeftPercentage);
+			Timer.delay(1);
+			base.stop();
+			Timer.delay(0.5);
 
+			intaker.set(-1);
+			base.tankDrive(forwardLeftPercentage*0.6,forwardRightPercentage*0.6);
+			Timer.delay(1.5);
+			base.stop();
+			intaker.set(0);
+			Timer.delay(0.5);
+
+			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+			Timer.delay(0.7);
+			base.stop();
+			Timer.delay(0.5);
+
+			intakerLift.set(-0.5);
+			Timer.delay(0.7);
+			intakerLift.set(0);
+			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			intaker.set(1);
+			Timer.delay(1);
+
+			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			intaker.set(0);
+		} else if (startPosition == Position.RIGHT) {
+			base.tankDrive(forwardLeftPercentage*1.5,forwardRightPercentage*1.5);
+			Timer.delay(2.8);
+			base.stop();
+			Timer.delay(1.5);
+
+			base.tankDrive(turningLeftPercentage,turningRightPercentage);
+			Timer.delay(0.9);
+			base.stop();
+			Timer.delay(0.5);
+
+			if (platePosition == Position.LEFT) {
+				base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+				Timer.delay(0.9);
+				base.stop();
+				Timer.delay(0.5);
+			} else {
+				base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+				Timer.delay(3.5);
+				base.stop();
+				Timer.delay(0.5);
+			}
+
+			base.tankDrive(turningLeftPercentage,turningRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			Timer.delay(0.5);
+
+			intaker.set(-1);
+			base.tankDrive(forwardLeftPercentage*0.6,forwardRightPercentage*0.6);
+			Timer.delay(1.5);
+			base.stop();
+			intaker.set(0);
+			Timer.delay(0.5);
+
+			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+			Timer.delay(0.7);
+			base.stop();
+			Timer.delay(0.5);
+
+			intakerLift.set(-0.5);
+			Timer.delay(0.7);
+			intakerLift.set(0);
+			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			intaker.set(1);
+			Timer.delay(1);
+
+			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+			Timer.delay(1);
+			base.stop();
+			intaker.set(0);
 		} else if (startPosition == Position.MIDDLE && platePosition == Position.LEFT) {
-
+			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+			Timer.delay(0.5);
+			base.tankDrive(0,0);
+			Timer.delay(0.5);
+			intaker.set(0.7);
+			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+			Timer.delay(0.5);
+			base.tankDrive(0,0);
+			intaker.set(0);
+			Timer.delay(0.5);
+			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+			Timer.delay(0.5);
+			base.tankDrive(0,0);
+			Timer.delay(0.5);
+			base.tankDrive(turningLeftPercentage,turningRightPercentage);
+			Timer.delay(0.5);
+			base.tankDrive(0,0);
+			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+			Timer.delay(0.5);
+			base.tankDrive(0,0);
 		} else if (startPosition == Position.MIDDLE && platePosition == Position.RIGHT) {
 
 		}
@@ -216,8 +333,8 @@ public class Robot extends IterativeRobot {
 
 			double xboxMotion_z = xboxMotion.getRawAxis(0) / 4;
 
-			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2))*0.65  + xboxMotion_z;
-			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) *0.65 - xboxMotion_z;
+			double leftSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2))*0.5  + xboxMotion_z;
+			double rightSpeed = (xboxMotion.getRawAxis(3) - xboxMotion.getRawAxis(2)) *0.5 - xboxMotion_z;
 
 			if (xboxMotion.getRawButton(1) && !pastButton1State)
 				base.getAHRS().reset();

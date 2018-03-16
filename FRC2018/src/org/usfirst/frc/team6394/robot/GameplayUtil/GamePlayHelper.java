@@ -19,6 +19,7 @@ public class GamePlayHelper {
 			throw new IllegalArgumentException("Argument can only be ALLIANCE, MIDDLE or OPPONENT!");
 		}
 		char c = DriverStation.getInstance().getGameSpecificMessage().charAt(index);
+		DriverStation.getInstance().getLocation();
 		if (c == 'L') {
 			return Position.LEFT;
 		} else {

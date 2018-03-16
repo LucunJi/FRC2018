@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec3fe80a-8a47-40bd-af87-f9edce7eae15" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/FRC2018/build/jars/CTRE_Phoenix.jar" afterPath="$PROJECT_DIR$/FRC2018/build/jars/CTRE_Phoenix.jar" />
-      <change beforePath="$PROJECT_DIR$/FRC2018/build/jars/WPILib.jar" afterPath="$PROJECT_DIR$/FRC2018/build/jars/WPILib.jar" />
-      <change beforePath="$PROJECT_DIR$/FRC2018/build/jars/cscore.jar" afterPath="$PROJECT_DIR$/FRC2018/build/jars/cscore.jar" />
-      <change beforePath="$PROJECT_DIR$/FRC2018/build/jars/wpiutil.jar" afterPath="$PROJECT_DIR$/FRC2018/build/jars/wpiutil.jar" />
+      <change beforePath="$PROJECT_DIR$/FRC2018/build/org/usfirst/frc/team6394/robot/Robot.class" afterPath="$PROJECT_DIR$/FRC2018/build/org/usfirst/frc/team6394/robot/Robot.class" />
       <change beforePath="$PROJECT_DIR$/FRC2018/dist/FRCUserProgram.jar" afterPath="$PROJECT_DIR$/FRC2018/dist/FRCUserProgram.jar" />
+      <change beforePath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/GameplayUtil/GamePlayHelper.java" afterPath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/GameplayUtil/GamePlayHelper.java" />
       <change beforePath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java" afterPath="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java" />
     </list>
     <ignored path="$PROJECT_DIR$/FRC2018/bin/" />
@@ -26,23 +24,12 @@
       <file leaf-file-name="Robot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2569">
-              <caret line="261" column="21" lean-forward="true" selection-start-line="261" selection-start-column="21" selection-end-line="261" selection-end-column="21" />
+            <state relative-caret-position="17">
+              <caret line="235" column="29" lean-forward="true" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
               <folding>
-                <element signature="e#4838#4878#0" expanded="false" />
-                <element signature="e#7868#7918#0" expanded="false" />
-                <element signature="e#8659#8724#0" expanded="false" />
+                <element signature="e#7895#7935#0" expanded="false" />
+                <element signature="e#11714#11779#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorDifferentialBase.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="78" column="27" lean-forward="false" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -77,6 +64,7 @@
         <option value="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Constants.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/base/SensorDifferentialBase.java" />
+        <option value="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/GameplayUtil/GamePlayHelper.java" />
         <option value="$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java" />
       </list>
     </option>
@@ -135,6 +123,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="robot" type="462c0819:PsiDirectoryNode" />
               <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FRC2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FRC2018" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="robot" type="462c0819:PsiDirectoryNode" />
+              <item name="GameplayUtil" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FRC2018" type="b2602c69:ProjectViewProjectNode" />
@@ -465,7 +460,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -540,9 +534,8 @@
         <state relative-caret-position="1752">
           <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -559,9 +552,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -578,9 +570,8 @@
         <state relative-caret-position="5424">
           <caret line="226" column="5" lean-forward="false" selection-start-line="226" selection-start-column="5" selection-end-line="226" selection-end-column="5" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,9 +588,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -616,9 +606,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -635,9 +624,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -654,9 +642,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -673,9 +660,8 @@
         <state relative-caret-position="384">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -692,9 +678,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -704,9 +689,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -716,9 +700,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -728,9 +711,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -740,9 +722,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -752,9 +733,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -792,9 +772,8 @@
         <state relative-caret-position="197">
           <caret line="64" column="57" lean-forward="true" selection-start-line="64" selection-start-column="57" selection-end-line="64" selection-end-column="57" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -804,9 +783,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -816,9 +794,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -827,13 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="4" column="22" lean-forward="true" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/GameplayUtil/GamePlayHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -902,14 +872,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$wpilib.sources$!/edu/wpi/first/wpilibj/DriverStation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="841" column="17" lean-forward="true" selection-start-line="841" selection-start-column="17" selection-end-line="841" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/GameplayUtil/GamePlayHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/FRC2018/src/org/usfirst/frc/team6394/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2569">
-          <caret line="261" column="21" lean-forward="true" selection-start-line="261" selection-start-column="21" selection-end-line="261" selection-end-column="21" />
+        <state relative-caret-position="17">
+          <caret line="235" column="29" lean-forward="true" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
           <folding>
-            <element signature="e#4838#4878#0" expanded="false" />
-            <element signature="e#7868#7918#0" expanded="false" />
-            <element signature="e#8659#8724#0" expanded="false" />
+            <element signature="e#7895#7935#0" expanded="false" />
+            <element signature="e#11714#11779#0" expanded="false" />
           </folding>
         </state>
       </provider>
