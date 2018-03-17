@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 			System.out.println(pointer);
 			switch (pointer){
 				case 0:
-					if (t.get() < 1.3) {
+					if (t.get() < 1.5) {
 						base.tankDrive(forwardLeftPercentage * 1.5, forwardRightPercentage * 1.5);
 					} else {
 						pointer++;
@@ -129,7 +129,7 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 2:
-					if (t.get() < 0.9) {
+					if (t.get() < 1.3) {
 						base.tankDrive(turningRightPercentage,turningLeftPercentage);
 					} else {
 						pointer++;
@@ -170,7 +170,7 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 6:
-					if (t.get() < 1) {
+					if (t.get() < 1.3) {
 						base.tankDrive(turningRightPercentage,turningLeftPercentage);
 					} else {
 						pointer++;
@@ -269,35 +269,130 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				default:
-					if (t.get() < 0.7) {
+					base.stop();
+					break;
+			}
+		} else if (startPosition == Position.MIDDLE && platePosition == Position.LEFT) {
+			switch (pointer){
+				case 0:
+					if (t.get() < 0.5) {
+						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 1:
+					if (t.get() < 0.5) {
 						base.stop();
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
+				case 2:
+					if (t.get() < 0.5) {
+						intaker.set(0.7);
+						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 3:
+					if (t.get() < 0.5) {
+						base.stop();
+						intaker.set(0);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 4:
+					if (t.get() < 0.5) {
+						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 5:
+					if (t.get() < 0.5) {
+						base.stop();
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 6:
+					if (t.get() < 0.5) {
+						base.tankDrive(turningLeftPercentage,turningRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+				case 7:
+					if (t.get() < 0.5) {
+						base.stop();
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 8:
+					if (t.get() < 1) {
+						intakerLift.set(-0.5);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 9:
+					if (t.get() < 0.5) {
+						intakerLift.set(0);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 10:
+					if (t.get() < 1.5) {
+						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 11:
+					if (t.get() < 0.5) {
+						base.stop();
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 12:
+					if (t.get() < 0.7) {
+						intaker.set(0.5);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				case 13 :
+					if (t.get() < 0.5) {
+						intaker.set(0);
+						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+					} else {
+						pointer++;
+						t.reset();
+					}
+					break;
+				default:
+					intaker.set(0);
+					base.stop();
+					break;
 			}
-		} else if (startPosition == Position.MIDDLE && platePosition == Position.LEFT) {
-			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0,0);
-			Timer.delay(0.5);
-			intaker.set(0.7);
-			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0,0);
-			intaker.set(0);
-			Timer.delay(0.5);
-			base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0,0);
-			Timer.delay(0.5);
-			base.tankDrive(turningLeftPercentage,turningRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0,0);
-			base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
-			Timer.delay(0.5);
-			base.tankDrive(0,0);
 		} else if (startPosition == Position.MIDDLE && platePosition == Position.RIGHT) {
 
 		}
