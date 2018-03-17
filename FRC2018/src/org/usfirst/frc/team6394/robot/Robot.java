@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	private DigitalInput LiftUpper = new DigitalInput(2);
 	private DigitalInput LiftLower = new DigitalInput(3);
 	//Change this to adapt to different start position
-	private final Position startPosition = Position.RIGHT;
+	private final Position startPosition = Position.LEFT;
 	double forwardLeftPercentage = 0.42;
 	double forwardRightPercentage = 0.42;
 	double backwardLeftPercentage = 0;
@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 			System.out.println(pointer);
 			switch (pointer){
 				case 0:
-					if (t.get() < 2.4) {
+					if (t.get() < 1.3) {
 						base.tankDrive(forwardLeftPercentage * 1.5, forwardRightPercentage * 1.5);
 					} else {
 						pointer++;
