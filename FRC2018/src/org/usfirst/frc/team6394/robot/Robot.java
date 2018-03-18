@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	private DigitalInput LiftUpper = new DigitalInput(2);
 	private DigitalInput LiftLower = new DigitalInput(3);
 	//Change this to adapt to different start position
-	private final Position startPosition = Position.LEFT;
+	private final Position startPosition = Position.RIGHT;
 	double forwardLeftPercentage = 0.42;
 	double forwardRightPercentage = 0.42;
 	double backwardLeftPercentage = 0;
@@ -108,12 +108,158 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Position platePosition = GamePlayHelper.getPlatePositionAt(Position.ALLIANCE);
-		System.out.println(startPosition.toString());
-		if (startPosition == Position.LEFT) {
-			System.out.println(pointer);
-			switch (pointer){
+		if (startPosition == platePosition) {
+//		if (startPosition == Position.LEFT) {
+//			switch (pointer){
+//				case 0:
+//					if (t.get() < 1.5) {
+//						base.tankDrive(forwardLeftPercentage * 1.5, forwardRightPercentage * 1.5);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 1:
+//					if (t.get() < 0.7) {
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 2:
+//					if (t.get() < 1.3) {
+//						base.tankDrive(turningRightPercentage,turningLeftPercentage);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 3:
+//					if (t.get() < 0.5) {
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 4:
+//					if (platePosition == Position.LEFT) {
+//						if (t.get() < 0.9) {
+//							base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//						} else {
+//							pointer++;
+//							t.reset();
+//						}
+//					} else {
+//						if (t.get() < 3.5) {
+//							base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
+//						} else {
+//							pointer++;
+//							t.reset();
+//						}
+//					}
+//					break;
+//				case 5:
+//					if (t.get() < 0.5) {
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 6:
+//					if (t.get() < 1.3) {
+//						base.tankDrive(turningRightPercentage,turningLeftPercentage);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 7:
+//					if (t.get() < 0.5) {
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 8:
+//					if (t.get() < 2) {
+//						intaker.set(-1);
+//						base.tankDrive(forwardLeftPercentage*0.6,forwardRightPercentage*0.6);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 9:
+//					if (t.get() < 0.5) {
+//						intaker.set(0);
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 10:
+//					if (t.get() < 0.5) {
+//						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 11:
+//					if (t.get() < 0.5) {
+//						base.stop();
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 12:
+//					if (t.get() < 1.5) {
+//						intakerLift.set(-0.5);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 13:
+//					if (t.get() < 1) {
+//						intakerLift.set(0);
+//						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 14:
+//					if (t.get() < 1) {
+//						base.stop();
+//						intaker.set(0.5);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				case 15:
+//					if (t.get() < 1) {
+//						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+//					} else {
+//						pointer++;
+//						t.reset();
+//					}
+//					break;
+//				default:
+//					base.stop();
+//					intaker.set(0);
+//					break;
+//			}
+			switch (pointer) {
 				case 0:
-					if (t.get() < 1.5) {
+					if (t.get() < 2.2) {
 						base.tankDrive(forwardLeftPercentage * 1.5, forwardRightPercentage * 1.5);
 					} else {
 						pointer++;
@@ -129,8 +275,8 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 2:
-					if (t.get() < 1.3) {
-						base.tankDrive(turningRightPercentage,turningLeftPercentage);
+					if (t.get() < 2.5) {
+						intakerLift.set(-0.5);
 					} else {
 						pointer++;
 						t.reset();
@@ -138,27 +284,18 @@ public class Robot extends IterativeRobot {
 					break;
 				case 3:
 					if (t.get() < 0.5) {
-						base.stop();
+						intakerLift.set(0);
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
 				case 4:
-					if (platePosition == Position.LEFT) {
-						if (t.get() < 0.9) {
-							base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-						} else {
-							pointer++;
-							t.reset();
-						}
+					if (t.get() < 1) {
+						base.tankDrive(forwardLeftPercentage*.5,forwardRightPercentage*.5);
 					} else {
-						if (t.get() < 3.5) {
-							base.tankDrive(forwardLeftPercentage, forwardRightPercentage);
-						} else {
-							pointer++;
-							t.reset();
-						}
+						pointer++;
+						t.reset();
 					}
 					break;
 				case 5:
@@ -170,92 +307,40 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 6:
-					if (t.get() < 1.3) {
-						base.tankDrive(turningRightPercentage,turningLeftPercentage);
+					if (t.get() < 1) {
+						intaker.set(0.7);
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
 				case 7:
-					if (t.get() < 0.5) {
-						base.stop();
+					if (t.get() < 1) {
+						base.tankDrive(-forwardLeftPercentage*.5,-forwardRightPercentage*.5);
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
 				case 8:
-					if (t.get() < 2) {
-						intaker.set(-1);
-						base.tankDrive(forwardLeftPercentage*0.6,forwardRightPercentage*0.6);
+					if (t.get() < 0.5) {
+						base.stop();
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
 				case 9:
-					if (t.get() < 0.5) {
-						intaker.set(0);
-						base.stop();
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 10:
-					if (t.get() < 0.5) {
-						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 11:
-					if (t.get() < 0.5) {
-						base.stop();
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 12:
-					if (t.get() < 1.5) {
-						intakerLift.set(-0.5);
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 13:
-					if (t.get() < 1) {
-						intakerLift.set(0);
-						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 14:
-					if (t.get() < 1) {
-						base.stop();
-						intaker.set(0.5);
-					} else {
-						pointer++;
-						t.reset();
-					}
-					break;
-				case 15:
-					if (t.get() < 1) {
-						base.tankDrive(-forwardLeftPercentage,-forwardRightPercentage);
+					if (t.get() < 2) {
+						intakerLift.set(0.5);
 					} else {
 						pointer++;
 						t.reset();
 					}
 					break;
 				default:
+					intakerLift.set(0);
 					base.stop();
-					intaker.set(0);
 					break;
 			}
 		} else if (startPosition == Position.RIGHT) {
@@ -272,7 +357,7 @@ public class Robot extends IterativeRobot {
 					base.stop();
 					break;
 			}
-		} else if (startPosition == Position.MIDDLE && platePosition == Position.LEFT) {
+		} else if (startPosition == Position.MIDDLE) {
 			switch (pointer){
 				case 0:
 					if (t.get() < 0.5) {
@@ -291,9 +376,9 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 2:
-					if (t.get() < 0.5) {
+					if (t.get() < 1.5) {
 						intaker.set(0.7);
-						base.tankDrive(forwardLeftPercentage,forwardRightPercentage);
+						base.tankDrive(forwardLeftPercentage*.6,forwardRightPercentage*.6);
 					} else {
 						pointer++;
 						t.reset();
@@ -325,12 +410,22 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 6:
-					if (t.get() < 0.5) {
-						base.tankDrive(turningLeftPercentage,turningRightPercentage);
+					if (platePosition == Position.LEFT) {
+						if (t.get() < 0.5) {
+							base.tankDrive(turningLeftPercentage, turningRightPercentage);
+						} else {
+							pointer++;
+							t.reset();
+						}
 					} else {
-						pointer++;
-						t.reset();
+						if (t.get() < 0.5) {
+							base.tankDrive(turningRightPercentage, turningLeftPercentage);
+						} else {
+							pointer++;
+							t.reset();
+						}
 					}
+
 				case 7:
 					if (t.get() < 0.5) {
 						base.stop();
